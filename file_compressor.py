@@ -1,7 +1,17 @@
 from ANS import *
+from huffman import *
+from arithmetic_coding import *
+from sANS import *
+from utils.utils import convert_list_to_string
 
-
-class rANSFileCompressor:
+compressors = {
+    'huffman': Huffman,
+    'arithmetic': ArithmeticCoding,
+    'range': RangeCoding,
+    'rANS': rANS,
+    'sANS': sANS
+}
+class FileCompressor:
     '''
     Compresses a file
 
@@ -19,10 +29,25 @@ class rANSFileCompressor:
     def __init__(self, file):
         self.file = file
         self.__parse_file()
-        self.rANS = rANS(self.symbols, self.frequency)
+        print(self.symbols, self.frequency)
 
-    def file_encode(self):
-        self.encoded_value = self.rANS.rANS_encode(self.all_symbols)
+    def file_encode(self, compressor):
+        if compressor == 'huffman':
+            self.compres = Huffman(self.symbols, self.frequency)
+            self.encoded_value = self.compres.encode(msg = self.all_symbols)
+        if compressor == 'arithmetic':
+            self.compres = ArithmeticCoding(self.symbols, self.frequency)
+            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols))
+        if compressor == 'range':
+            self.compres = RangeCoding(self.symbols, self.frequency)
+            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols))
+        if compressor == 'rANS':
+            self.compres = rANS(self.symbols, self.frequency) 
+            self.encoded_value = self.compres.encode(data = self.all_symbols, start_state=0)
+        if compressor == 'sANS':
+            self.compres = sANS(self.symbols, self.frequency) 
+            self.encoded_value = self.compres.encode(initial_state = self.compres.M + 2,data = self.all_symbols)
+
         return self.encoded_value
 
     def __parse_file(self):
@@ -63,7 +88,6 @@ class rANSFileCompressor:
 
         '''
         self.name, size, creation, modification = file_summary(self.file)
-        entropy = self.rANS.entropy
         compression_size = len(bin(self.encoded_value))/8  # converts to bytes
         compression_ratio = f"{compression_size*100/size}%"
         size_conv = convert_bytes(size)
@@ -78,41 +102,42 @@ class rANSFileCompressor:
             ['File Size', size_conv],
             ['File Created', creation],
             ['Last Modified', modification],
-            ["Shannon's Entropy", entropy],
             ['Compressed File Size', compression_size_conv],
             ['Compression Ratio', compression_ratio],
         ]
         print(tabulate.tabulate(summ, tablefmt='pretty', numalign='center'))
 
     def decode(self, encoded_value: int):
-        decoded_symbols = self.rANS.rANS_decode(encoded_value)
+        decoded_symbols = self.compres.decode(encoded_value)
         output = ''
         for s in decoded_symbols:
             output += s
         return output
 
-    def create_aux_file(self):
-        '''
-        creates an auxiliary file with symbols and their frequency distribution: for decompressor
-        consists of:
-                symbols, frequency, file_name
-        using this becomes counter intuituve as the aux_file will have size > original file. 
-        '''
 
+    # def create_aux_file(self):
+    #     '''
+    #     creates an auxiliary file with symbols and their frequency distribution: for decompressor
+    #     consists of:
+    #             symbols, frequency, file_name
+    #     using this becomes counter intuituve as the aux_file will have size > original file. 
+    #     '''
 
-class rANSFileDecompressor(rANSDecoder):
-    '''
-    rANS file decompressor class
-    inherits the rANSDecoder class
-    '''
+f = FileCompressor('/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/lib/tests/test1.txt')
+print(f.file_encode('range'))
+# class rANSFileDecompressor(rANSDecoder):
+#     '''
+#     rANS file decompressor class
+#     inherits the rANSDecoder class
+#     '''
 
-    def __init__(self, symbols: list, frequency: list, encoded_value: int) -> None:
-        super().__init__(symbols, frequency)
-        self.encoded_val = encoded_value
+#     def __init__(self, symbols: list, frequency: list, encoded_value: int) -> None:
+#         super().__init__(symbols, frequency)
+#         self.encoded_val = encoded_value
 
-    def file_decode(self):
-        decoded_symbols = self.decode(self.encoded_val)
-        output = ''
-        for s in decoded_symbols:
-            output += s
-        return output
+#     def file_decode(self):
+#         decoded_symbols = self.decode(self.encoded_val)
+#         output = ''
+#         for s in decoded_symbols:
+#             output += s
+#         return output

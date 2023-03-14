@@ -1,1 +1,1 @@
-The goal of lossless image compression is to represent an image signal with the smallest possible number of bits without loss of any information, thereby speeding up transmission and minimizing storage requirements.
+hello

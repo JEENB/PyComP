@@ -34,15 +34,8 @@ def uABS_encoding_table_for_a_symbol(symbol, p: float, show_steps=False):
 def uABS_encoding_table(p: float, symbols: list = [0, 1], show_steps=False):
     '''
     table elements is a list of symbol, x_prev, x_new
-    encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev 
-      x|0| 1| 2| 3| 4| 5| 6| 7| 8| 9| 10| 11 | ... -> x_prev
-    ------------------------------------------------
-    s=0| |  |  |  |  |  |  |  |  |  |  |  | a |    a -> x_new 
-    s=1| |  |  |  |  |  |  |  |  |  |  |  |  |
-    -----------------------------------------------
-    ^
-    |
-    symbol
+    encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev
+
     '''
     table_elements = []
     for s in symbols:

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="File Compressor" href="file_compressor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="huffman.html">Huffman Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html">Arithmetic Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html">ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html">uABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_compressor.html">File Compressor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.ac_utils">utils.ac_utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.ac_utils.decToBinConversion"><code class="docutils literal notranslate"><span class="pre">decToBinConversion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.ac_utils.getBinaryFractionValue"><code class="docutils literal notranslate"><span class="pre">getBinaryFractionValue()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.bit_array_utils">utils.bit_array_utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.bit_array_utils.bitarray_to_int"><code class="docutils literal notranslate"><span class="pre">bitarray_to_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.bit_array_utils.bitarrays_to_float"><code class="docutils literal notranslate"><span class="pre">bitarrays_to_float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.bit_array_utils.float_to_bitarrays"><code class="docutils literal notranslate"><span class="pre">float_to_bitarrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.bit_array_utils.int_to_bitarray"><code class="docutils literal notranslate"><span class="pre">int_to_bitarray()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.file_utils">utils.file_utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.convert_bytes"><code class="docutils literal notranslate"><span class="pre">convert_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.epoch_to_datetime"><code class="docutils literal notranslate"><span class="pre">epoch_to_datetime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.file_creation"><code class="docutils literal notranslate"><span class="pre">file_creation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.file_last_modified"><code class="docutils literal notranslate"><span class="pre">file_last_modified()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.file_name"><code class="docutils literal notranslate"><span class="pre">file_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.file_size"><code class="docutils literal notranslate"><span class="pre">file_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.file_utils.file_summary"><code class="docutils literal notranslate"><span class="pre">file_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.utils">utils.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.utils.convert_list_to_string"><code class="docutils literal notranslate"><span class="pre">convert_list_to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.utils.encode_symbols_to_integer"><code class="docutils literal notranslate"><span class="pre">encode_symbols_to_integer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.utils.encoding_table"><code class="docutils literal notranslate"><span class="pre">encoding_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.utils.get_symbols"><code class="docutils literal notranslate"><span class="pre">get_symbols()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PyComP</a></li>
+      <li class="breadcrumb-item active">Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this heading"></a></h1>
+<section id="module-utils.ac_utils">
+<span id="utils-ac-utils-module"></span><h2>utils.ac_utils module<a class="headerlink" href="#module-utils.ac_utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.ac_utils.decToBinConversion">
+<span class="sig-prename descclassname"><span class="pre">utils.ac_utils.</span></span><span class="sig-name descname"><span class="pre">decToBinConversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/utils/ac_utils.html#decToBinConversion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.ac_utils.decToBinConversion" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a decimal number to binary accepts fraction as well</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>no: float </dt><dd><p>decimal number can consist fraction part as well</p>
+</dd>
+<dt>precision: int</dt><dd><p>precision required for the fractinal part returns fractional part to that precision level</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>binary: str</dt><dd><p>returns the binary conversion of a decimal number with user-defined precision</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.ac_utils.getBinaryFractionValue">
+<span class="sig-prename descclassname"><span class="pre">utils.ac_utils.</span></span><span class="sig-name descname"><span class="pre">getBinaryFractionValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binaryFraction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ac_utils.html#getBinaryFractionValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.ac_utils.getBinaryFractionValue" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the binary fraction value using the formula of:
+(2^-1) * 1st bit + (2^-2) * 2nd bit + …</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>binaryFraction: str</dt><dd><p>binary string of the fractional part.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>value: float</dt><dd><p>returns the fractional part in decimal</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.bit_array_utils">
+<span id="utils-bit-array-utils-module"></span><h2>utils.bit_array_utils module<a class="headerlink" href="#module-utils.bit_array_utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.bit_array_utils.bitarray_to_int">
+<span class="sig-prename descclassname"><span class="pre">utils.bit_array_utils.</span></span><span class="sig-name descname"><span class="pre">bitarray_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bit_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/bit_array_utils.html#bitarray_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.bit_array_utils.bitarray_to_int" title="Permalink to this definition"></a></dt>
+<dd><p>Converts bitarray to int.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>bit_array: BITARRAY</dt><dd><p>bits to be converted</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dec: int</dt><dd><p>decimal_equivalent of bit_array</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.bit_array_utils.bitarrays_to_float">
+<span class="sig-prename descclassname"><span class="pre">utils.bit_array_utils.</span></span><span class="sig-name descname"><span class="pre">bitarrays_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uint_x_bitarray</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frac_x_bitarray</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/utils/bit_array_utils.html#bitarrays_to_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.bit_array_utils.bitarrays_to_float" title="Permalink to this definition"></a></dt>
+<dd><p>Converts bitarrays corresponding to integer and fractional part of a floatating point number to a float.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>uint_x_bitarray: BitArray </dt><dd><p>bitarray corresponding to the integer part of x</p>
+</dd>
+<dt>frac_x_bitarray: BitArray </dt><dd><p>bitarray corresponding to the fractional part of x</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>x: float, the floating point number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.bit_array_utils.float_to_bitarrays">
+<span class="sig-prename descclassname"><span class="pre">utils.bit_array_utils.</span></span><span class="sig-name descname"><span class="pre">float_to_bitarrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bitarray.bitarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bitarray.bitarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/utils/bit_array_utils.html#float_to_bitarrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.bit_array_utils.float_to_bitarrays" title="Permalink to this definition"></a></dt>
+<dd><p>Convert floating point number to binary with the given max_precision
+Utility function to obtain binary representation of the floating point number.
+We return a tuple of binary representations of the integer part and the fraction part of the
+floating point number.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>x: float</dt><dd><p>input floating point number</p>
+</dd>
+<dt>max_precision: int </dt><dd><p>max binary precision (after the decimal point) to which we should return the bitarray</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>Tuple[BitArray, BitArray]: returns (uint_x_bitarray, frac_x_bitarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.bit_array_utils.int_to_bitarray">
+<span class="sig-prename descclassname"><span class="pre">utils.bit_array_utils.</span></span><span class="sig-name descname"><span class="pre">int_to_bitarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bitarray.bitarray</span></span></span><a class="reference internal" href="_modules/utils/bit_array_utils.html#int_to_bitarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.bit_array_utils.int_to_bitarray" title="Permalink to this definition"></a></dt>
+<dd><p>Converts int to bits.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>x: int</dt><dd><p>integer to be converted</p>
+</dd>
+<dt>bit_width: int, default = None</dt><dd><p>length</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>bit: BITARRAY</dt><dd><p>binary equivalent of x</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.file_utils">
+<span id="utils-file-utils-module"></span><h2>utils.file_utils module<a class="headerlink" href="#module-utils.file_utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.convert_bytes">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">convert_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/utils/file_utils.html#convert_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.convert_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>This function will convert bytes to MB…. GB… etc.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>x: float</dt><dd><p>input floating point number</p>
+</dd>
+<dt>max_precision: int</dt><dd><p>max binary precision (after the decimal point) to which we should return the bitarray</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>file_size: str</dt><dd><p>file size to the nearest MB…. GB…</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert_bytes</span><span class="p">(</span><span class="mi">10580</span><span class="p">)</span>
+<span class="go">    10.3 KB</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.epoch_to_datetime">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">epoch_to_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#epoch_to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.epoch_to_datetime" title="Permalink to this definition"></a></dt>
+<dd><p>This function converts epoch into datetime</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>epoch_time: int</dt><dd><p>time in epoch scale</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>date: datetime</dt><dd><p>standard date and time of the epoch time.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epoch_to_datetime</span><span class="p">(</span><span class="mi">12452687</span><span class="p">)</span>
+<span class="go">    1970-05-25 08:34:47</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.file_creation">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">file_creation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#file_creation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.file_creation" title="Permalink to this definition"></a></dt>
+<dd><p>This function will return the file creation date</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>file_path: str</dt><dd><p>path of the file</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>file_creation: Datetime</dt><dd><p>file creation time in standard format</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_creation</span><span class="p">(</span><span class="s1">&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;</span><span class="p">)</span>
+<span class="go">    2023-03-13 23:11:04.054830</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.file_last_modified">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">file_last_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#file_last_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.file_last_modified" title="Permalink to this definition"></a></dt>
+<dd><p>This function will return the file modified datetime</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>file_path: str</dt><dd><p>path of the file</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>file_moodified_time: Datetime</dt><dd><p>last modified time in standard format</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_last_modified</span><span class="p">(</span><span class="s1">&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;</span><span class="p">)</span>
+<span class="go">    2023-03-13 23:11:01.540858</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.file_name">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.file_name" title="Permalink to this definition"></a></dt>
+<dd><p>This function will return the file name.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>file_path: str</dt><dd><p>path of the file</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>file_name: str</dt><dd><p>name of the file with extension</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_name</span><span class="p">(</span><span class="s1">&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;</span><span class="p">)</span>
+<span class="go">    utils.py</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.file_size">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">file_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#file_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.file_size" title="Permalink to this definition"></a></dt>
+<dd><p>This function will return the file size.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>file_path: str</dt><dd><p>path of the file</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>file_size: int</dt><dd><p>size of file in bits</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_size</span><span class="p">(</span><span class="s1">&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;</span><span class="p">)</span>
+<span class="go">    3305</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_utils.file_summary">
+<span class="sig-prename descclassname"><span class="pre">utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">file_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/file_utils.html#file_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.file_utils.file_summary" title="Permalink to this definition"></a></dt>
+<dd><p>Compautes the summary of the file. Runs the file util functions.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>file_path: str</dt><dd><p>path of the file</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>name, size, creation, modification: Tuple[str, str, datetime, datetime]</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_summary</span><span class="p">(</span><span class="s1">&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;</span><span class="p">)</span>
+<span class="go">    (&#39;utils.py&#39;, 3305, datetime.datetime(2023, 3, 13, 23, 11, 4, 54830), datetime.datetime(2023, 3, 13, 23, 11, 1, 540858))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utils.utils">
+<span id="utils-utils-module"></span><h2>utils.utils module<a class="headerlink" href="#module-utils.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.utils.convert_list_to_string">
+<span class="sig-prename descclassname"><span class="pre">utils.utils.</span></span><span class="sig-name descname"><span class="pre">convert_list_to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/utils/utils.html#convert_list_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.utils.convert_list_to_string" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.utils.encode_symbols_to_integer">
+<span class="sig-prename descclassname"><span class="pre">utils.utils.</span></span><span class="sig-name descname"><span class="pre">encode_symbols_to_integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/utils.html#encode_symbols_to_integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.utils.encode_symbols_to_integer" title="Permalink to this definition"></a></dt>
+<dd><p>Encodes each symbol to a integer starting from 0. Helper function for encoding_table</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>symbols: list</dt><dd><p>list of symbols to be encoded</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>encoded_list: dict </dt><dd><p>dict with the encoded values as keys</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.utils.encoding_table">
+<span class="sig-prename descclassname"><span class="pre">utils.utils.</span></span><span class="sig-name descname"><span class="pre">encoding_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/utils.html#encoding_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.utils.encoding_table" title="Permalink to this definition"></a></dt>
+<dd><p>Creates an encoding table given table elements for ANS. This table can be used to determing the symbol spread function. Helper function for ANS.rANS.encoding_table().</p>
+<dl class="simple">
+<dt>Paramaters:</dt><dd><dl class="simple">
+<dt>table_elements: Tuple(symbols, x_prev, x_new)</dt><dd><p>table elements is a list of symbol, x_prev, x_new
+encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>table: pd.Dataframe</dt><dd><p>the encoding table. Usually for ANS.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.utils.get_symbols">
+<span class="sig-prename descclassname"><span class="pre">utils.utils.</span></span><span class="sig-name descname"><span class="pre">get_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/utils/utils.html#get_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.utils.get_symbols" title="Permalink to this definition"></a></dt>
+<dd><p>Get arbitrary number of symbols following a particular distribution. Uses inversion sampling to sampling symbols. Used to test compressors.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>symbols: list</dt><dd><p>list of symbols</p>
+</dd>
+<dt>frequency: list</dt><dd><p>list of freqency associated with a particular symbol</p>
+</dd>
+<dt>no_symbols: int</dt><dd><p>number of symbols you want to sample</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>symbols: list</dt><dd><p>list of symbols following a particular distribution</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_symbols</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">    [&#39;z&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;, &#39;z&#39;, &#39;z&#39;, &#39;b&#39;, &#39;b&#39;, &#39;b&#39;, &#39;a&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="file_compressor.html" class="btn btn-neutral float-left" title="File Compressor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

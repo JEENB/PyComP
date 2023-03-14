@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils.file_utils &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">PyComP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">utils.file_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for utils.file_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<div class="viewcode-block" id="convert_bytes"><a class="viewcode-back" href="../../utils.html#utils.file_utils.convert_bytes">[docs]</a><span class="k">def</span> <span class="nf">convert_bytes</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will convert bytes to MB.... GB... etc.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        x: float</span>
+<span class="sd">            input floating point number</span>
+<span class="sd">        max_precision: int</span>
+<span class="sd">            max binary precision (after the decimal point) to which we should return the bitarray</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        file_size: str</span>
+<span class="sd">            file size to the nearest MB.... GB...        </span>
+<span class="sd">    &gt;&gt;&gt; convert_bytes(10580)</span>
+<span class="sd">        10.3 KB</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bytes&#39;</span><span class="p">,</span> <span class="s1">&#39;KB&#39;</span><span class="p">,</span> <span class="s1">&#39;MB&#39;</span><span class="p">,</span> <span class="s1">&#39;GB&#39;</span><span class="p">,</span> <span class="s1">&#39;TB&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mf">1024.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%3.1f</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">/=</span> <span class="mf">1024.0</span></div>
+
+
+<div class="viewcode-block" id="epoch_to_datetime"><a class="viewcode-back" href="../../utils.html#utils.file_utils.epoch_to_datetime">[docs]</a><span class="k">def</span> <span class="nf">epoch_to_datetime</span><span class="p">(</span><span class="n">epoch_time</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function converts epoch into datetime</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        epoch_time: int</span>
+<span class="sd">            time in epoch scale</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        date: datetime</span>
+<span class="sd">            standard date and time of the epoch time.</span>
+<span class="sd">    &gt;&gt;&gt; epoch_to_datetime(12452687)</span>
+<span class="sd">        1970-05-25 08:34:47</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">date_conv</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">epoch_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">date_conv</span></div>
+
+
+<div class="viewcode-block" id="file_size"><a class="viewcode-back" href="../../utils.html#utils.file_utils.file_size">[docs]</a><span class="k">def</span> <span class="nf">file_size</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will return the file size.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path: str</span>
+<span class="sd">            path of the file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        file_size: int</span>
+<span class="sd">            size of file in bits</span>
+<span class="sd">    &gt;&gt;&gt; file_size(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;)</span>
+<span class="sd">        3305</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">file_info</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">file_info</span><span class="o">.</span><span class="n">st_size</span></div>
+
+
+<div class="viewcode-block" id="file_name"><a class="viewcode-back" href="../../utils.html#utils.file_utils.file_name">[docs]</a><span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will return the file name.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path: str</span>
+<span class="sd">            path of the file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        file_name: str</span>
+<span class="sd">            name of the file with extension</span>
+<span class="sd">    &gt;&gt;&gt; file_name(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;)</span>
+<span class="sd">        utils.py</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">file_name</span></div>
+
+
+<div class="viewcode-block" id="file_creation"><a class="viewcode-back" href="../../utils.html#utils.file_utils.file_creation">[docs]</a><span class="k">def</span> <span class="nf">file_creation</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will return the file creation date</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path: str</span>
+<span class="sd">            path of the file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        file_creation: Datetime</span>
+<span class="sd">            file creation time in standard format</span>
+<span class="sd">    &gt;&gt;&gt; file_creation(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;)</span>
+<span class="sd">        2023-03-13 23:11:04.054830</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">file_creation</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">file_creation_time</span> <span class="o">=</span> <span class="n">epoch_to_datetime</span><span class="p">(</span><span class="n">file_creation</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">file_creation_time</span></div>
+
+
+<div class="viewcode-block" id="file_last_modified"><a class="viewcode-back" href="../../utils.html#utils.file_utils.file_last_modified">[docs]</a><span class="k">def</span> <span class="nf">file_last_modified</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will return the file modified datetime</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path: str</span>
+<span class="sd">            path of the file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        file_moodified_time: Datetime</span>
+<span class="sd">            last modified time in standard format</span>
+<span class="sd">    &gt;&gt;&gt; file_last_modified(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;)</span>
+<span class="sd">        2023-03-13 23:11:01.540858</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">file_modif</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">file_modif_time</span> <span class="o">=</span> <span class="n">epoch_to_datetime</span><span class="p">(</span><span class="n">file_modif</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">file_modif_time</span></div>
+
+
+<div class="viewcode-block" id="file_summary"><a class="viewcode-back" href="../../utils.html#utils.file_utils.file_summary">[docs]</a><span class="k">def</span> <span class="nf">file_summary</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compautes the summary of the file. Runs the file util functions.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path: str</span>
+<span class="sd">            path of the file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        name, size, creation, modification: Tuple[str, str, datetime, datetime]</span>
+<span class="sd">    &gt;&gt;&gt; file_summary(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/ANS/utils/utils.py&#39;)</span>
+<span class="sd">        (&#39;utils.py&#39;, 3305, datetime.datetime(2023, 3, 13, 23, 11, 4, 54830), datetime.datetime(2023, 3, 13, 23, 11, 1, 540858))</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">file_size</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">creation</span> <span class="o">=</span> <span class="n">file_creation</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">modification</span> <span class="o">=</span> <span class="n">file_last_modified</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">creation</span><span class="p">,</span> <span class="n">modification</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

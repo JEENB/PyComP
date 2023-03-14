@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huffman Coding &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Arithmetic Coding" href="arithmetic_coding.html" />
+    <link rel="prev" title="Core" href="core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Huffman Coding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#huffman.Huffman"><code class="docutils literal notranslate"><span class="pre">Huffman</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#huffman.Huffman.decode"><code class="docutils literal notranslate"><span class="pre">Huffman.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#huffman.Huffman.encode"><code class="docutils literal notranslate"><span class="pre">Huffman.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#huffman.Huffman.huffman_tree"><code class="docutils literal notranslate"><span class="pre">Huffman.huffman_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#huffman.Huffman.print_tree"><code class="docutils literal notranslate"><span class="pre">Huffman.print_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#huffman.Huffman.show_table"><code class="docutils literal notranslate"><span class="pre">Huffman.show_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#huffman.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html">Arithmetic Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html">ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html">uABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_compressor.html">File Compressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PyComP</a></li>
+      <li class="breadcrumb-item active">Huffman Coding</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/huffman.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-huffman">
+<span id="huffman-coding"></span><h1>Huffman Coding<a class="headerlink" href="#module-huffman" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="huffman.Huffman">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">huffman.</span></span><span class="sig-name descname"><span class="pre">Huffman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/huffman.html#Huffman"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="core.html#core.data.Data" title="core.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
+<p>Class for Huffman Encoding. This class inherits the data class.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols<span class="classifier">list</span></dt><dd><p>list of symbols, elements can be any format</p>
+</dd>
+<dt>frequency: list</dt><dd><p>frequency list associated with the list</p>
+</dd>
+<dt>huffman_table: dict</dt><dd><p>initialize as an empty dictionary. Datastructure for huffman code</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="huffman.Huffman.decode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#huffman.Node" title="huffman.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/huffman.html#Huffman.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Decodes the encoded value into a set of symbols</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>encoded_value: str</dt><dd><p>encoded value is a string of binary</p>
+</dd>
+<dt>root_node: Node</dt><dd><p>root node of the huffman tree. Traverses through the node to decode.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>decoded_symbols: str</dt><dd><p>the symbols after decoding using the huffman tree.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">enc_value</span><span class="p">,</span> <span class="n">root_node</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">enc_value</span><span class="p">,</span> <span class="n">root_node</span><span class="p">))</span>
+<span class="go">abcbce</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="huffman.Huffman.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#huffman.Node" title="huffman.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/huffman.html#Huffman.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman.encode" title="Permalink to this definition"></a></dt>
+<dd><p>Using the huffman’s table encodes a message</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>msg: list</dt><dd><p>a list of symbols</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>encoded_value: str</dt><dd><p>binary string after encoding the message</p>
+</dd>
+<dt>root_node: Node</dt><dd><p>root_node of the huffman tree.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises: </dt><dd><p>Assertion error: If message contains invalid symbol</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">enc_value</span><span class="p">,</span> <span class="n">root_node</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">enc_value</span><span class="p">)</span>
+<span class="go">b0010111011011</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="huffman.Huffman.huffman_tree">
+<span class="sig-name descname"><span class="pre">huffman_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#huffman.Node" title="huffman.Node"><span class="pre">Node</span></a></span></span><a class="reference internal" href="_modules/huffman.html#Huffman.huffman_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman.huffman_tree" title="Permalink to this definition"></a></dt>
+<dd><p>Using the recursive huffman’s technique creates a huffman tree.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>root_node: Node</dt><dd><p>returns the root node. The tree can be constructed from the root node as it internal nodes are childrens.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="huffman.Huffman.print_tree">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">print_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#huffman.Node" title="huffman.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/huffman.html#Huffman.print_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman.print_tree" title="Permalink to this definition"></a></dt>
+<dd><p>Prints a tree in the terminal given a node</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>root: Node</dt><dd><p>pass in a object of class Node prints a tree.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="p">,</span> <span class="n">root_node</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">root_node</span><span class="p">)</span>
+<span class="go">((a(de))(bc))</span>
+<span class="go">    /¯¯¯¯¯¯   ¯¯¯¯¯¯\</span>
+<span class="go">(a(de))            (bc)</span>
+<span class="go">/¯¯¯ ¯¯¯\       /¯¯¯ ¯¯¯\</span>
+<span class="go">a    (de)       b       c</span>
+<span class="go">        /¯ ¯\</span>
+<span class="go">        d   e</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="huffman.Huffman.show_table">
+<span class="sig-name descname"><span class="pre">show_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/huffman.html#Huffman.show_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Huffman.show_table" title="Permalink to this definition"></a></dt>
+<dd><p>Prints the huffman encoding table.
+calls the huffman tree and get_codes function.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span><span class="o">.</span><span class="n">show_table</span><span class="p">()</span>
+<span class="go">+---------+-----------+</span>
+<span class="go">| Symbols | Codewords |</span>
+<span class="go">+---------+-----------+</span>
+<span class="go">|    a    |    00     |</span>
+<span class="go">|    d    |    010    |</span>
+<span class="go">|    e    |    011    |</span>
+<span class="go">|    b    |    10     |</span>
+<span class="go">|    c    |    11     |</span>
+<span class="go">+---------+-----------+        </span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="huffman.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">huffman.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.int32</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/huffman.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#huffman.Node" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for a node.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols: str</dt><dd><p>symbol of the node</p>
+</dd>
+<dt>freq: int | float</dt><dd><p>frequency of the node. For internal nodes calculated as sum of nodes</p>
+</dd>
+<dt>left: Node, default: None</dt><dd><p>left child of a node</p>
+</dd>
+<dt>right: Node, default: None</dt><dd><p>right child of a node</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.html" class="btn btn-neutral float-left" title="Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arithmetic_coding.html" class="btn btn-neutral float-right" title="Arithmetic Coding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

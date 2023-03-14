@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANS &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ANS</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ANS</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">core.data</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils.file_utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">tabulate</span>
+
+<span class="c1"># states are not defined as python allows for infinite integer precision</span>
+
+
+<div class="viewcode-block" id="rANS"><a class="viewcode-back" href="../ANS.html#ANS.rANS">[docs]</a><span class="k">class</span> <span class="nc">rANS</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    rANS compressor and decompressor class. Inherits the data class.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        symbols: list</span>
+<span class="sd">                list of all possible symbols</span>
+<span class="sd">        frequency: list</span>
+<span class="sd">                list of symbol frequency</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__find_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slot</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        search function for decoding</span>
+<span class="sd">        follows: c[s]&lt;= slot &lt; c[s+1]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">slot</span> <span class="o">&gt;=</span> <span class="n">l</span> <span class="ow">and</span> <span class="n">slot</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">s</span>
+
+<div class="viewcode-block" id="rANS.rANS_encode_step"><a class="viewcode-back" href="../ANS.html#ANS.rANS.rANS_encode_step">[docs]</a>    <span class="k">def</span> <span class="nf">rANS_encode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">x_prev</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Encoding step function&#39;&#39;&#39;</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">x_prev</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
+        <span class="n">slot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">symbol</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">x_prev</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">symbol</span><span class="p">])</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">block</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="n">slot</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="rANS.encode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">start_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        rANS encode function </span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            data: list</span>
+<span class="sd">                data to be encoded. Has to be a list</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            final_state: int </span>
+<span class="sd">                final encoded value</span>
+<span class="sd">        &gt;&gt;&gt; symbols = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; freq = [5, 5, 2]</span>
+<span class="sd">        &gt;&gt;&gt; a = rANS(symbols, freq)</span>
+<span class="sd">        &gt;&gt;&gt; a.encode([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;], 0)</span>
+<span class="sd">        1242</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">output_log</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># TODO: output log, check</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">start_state</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rANS_encode_step</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="rANS.rANS_decode_step"><a class="viewcode-back" href="../ANS.html#ANS.rANS.rANS_decode_step">[docs]</a>    <span class="k">def</span> <span class="nf">rANS_decode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_next</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Decoding step function</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">block_id</span> <span class="o">=</span> <span class="n">x_next</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
+        <span class="n">slot</span> <span class="o">=</span> <span class="n">x_next</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
+        <span class="n">decoded_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__find_symbol</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span>
+        <span class="n">x_prev</span> <span class="o">=</span> <span class="n">block_id</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">]</span> <span class="o">+</span> <span class="n">slot</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">decoded_symb</span><span class="p">,</span> <span class="n">x_prev</span></div>
+
+<div class="viewcode-block" id="rANS.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        rANS decode function</span>
+
+<span class="sd">        Parameters: </span>
+<span class="sd">            encoded_value: int</span>
+<span class="sd">                    final state after encoding </span>
+<span class="sd">                    this function inherits the probability distribuiton of the symbols.</span>
+<span class="sd">                    This function assumes that the probability distribuiton is know and the class is instantiated</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            symbols: list</span>
+<span class="sd">                the decoded symbols in reverse order</span>
+<span class="sd">        &gt;&gt;&gt; symbols = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; freq = [5, 5, 2]</span>
+<span class="sd">        &gt;&gt;&gt; a = rANS(symbols, freq)</span>
+<span class="sd">        &gt;&gt;&gt; a.decode(1242,6)</span>
+<span class="sd">        [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">x_prev</span> <span class="o">=</span> <span class="n">encoded_value</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span> <span class="o">!=</span> <span class="n">msg_len</span><span class="p">:</span>
+            <span class="n">block_id</span> <span class="o">=</span> <span class="n">x_prev</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
+            <span class="n">slot</span> <span class="o">=</span> <span class="n">x_prev</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
+            <span class="n">decoded_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__find_symbol</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span>
+            <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">decoded_symb</span><span class="p">)</span>
+            <span class="n">x_prev</span> <span class="o">=</span> <span class="n">block_id</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">]</span> <span class="o">+</span> <span class="n">slot</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">__rANS_encoding_table_for_a_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">final_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">output__log</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">final_state</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">symbol</span><span class="p">],</span> <span class="n">start_state</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">output__log</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">output__log</span>
+
+<div class="viewcode-block" id="rANS.rANS_encoding_table"><a class="viewcode-back" href="../ANS.html#ANS.rANS.rANS_encoding_table">[docs]</a>    <span class="k">def</span> <span class="nf">rANS_encoding_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">final_state</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the rANS encoding table. The format is similar to Dudak&#39;s paper. </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            final_state: the final state table should contain</span>
+<span class="sd">        Returns: </span>
+<span class="sd">            table: pd.Dataframe</span>
+<span class="sd">                returns and pandas dataframe and prints the dataframe. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">table_elements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rANS_encoding_table_for_a_symbol</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">final_state</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">table_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">encoding_table</span><span class="p">(</span><span class="n">table_elements</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">table</span></div></div>
+
+
+<div class="viewcode-block" id="rANSDecoder"><a class="viewcode-back" href="../ANS.html#ANS.rANSDecoder">[docs]</a><span class="k">class</span> <span class="nc">rANSDecoder</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    rANSDecoder class for decoding given symbols and frequency.</span>
+
+<span class="sd">    Parmaeters:</span>
+<span class="sd">        symbols: list</span>
+<span class="sd">                a list of symbols</span>
+<span class="sd">        frequency: list</span>
+<span class="sd">                frequency distribuiton list</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rans</span> <span class="o">=</span> <span class="n">rANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+
+<div class="viewcode-block" id="rANSDecoder.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANSDecoder.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function to decode, give the correct order</span>
+<span class="sd">        Parameters: </span>
+<span class="sd">            encoded_value: int</span>
+<span class="sd">                    final state after encoding</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            decoded symbols: list</span>
+<span class="sd">                list of decoded symbols</span>
+<span class="sd">        &gt;&gt;&gt; symbols = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; freq = [5, 5, 2]</span>
+<span class="sd">        &gt;&gt;&gt; a = rANSDecoder(symbols, freq)</span>
+<span class="sd">        &gt;&gt;&gt; a.decode(1242,6)</span>
+<span class="sd">        [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rans</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">symbols</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyComP &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Core" href="core.html" />
+    <link rel="prev" title="PyComP - Python Compression Library" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PyComP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="huffman.html">Huffman Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html">Arithmetic Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html">ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html">uABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_compressor.html">File Compressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PyComP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pycomp">
+<h1>PyComP<a class="headerlink" href="#pycomp" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.data">core.data module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#core.data.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.html#core.data.Data.shannon_entropy"><code class="docutils literal notranslate"><span class="pre">Data.shannon_entropy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="huffman.html">Huffman Coding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="huffman.html#huffman.Huffman"><code class="docutils literal notranslate"><span class="pre">Huffman</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="huffman.html#huffman.Huffman.decode"><code class="docutils literal notranslate"><span class="pre">Huffman.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="huffman.html#huffman.Huffman.encode"><code class="docutils literal notranslate"><span class="pre">Huffman.encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="huffman.html#huffman.Huffman.huffman_tree"><code class="docutils literal notranslate"><span class="pre">Huffman.huffman_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="huffman.html#huffman.Huffman.print_tree"><code class="docutils literal notranslate"><span class="pre">Huffman.print_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="huffman.html#huffman.Huffman.show_table"><code class="docutils literal notranslate"><span class="pre">Huffman.show_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="huffman.html#huffman.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arithmetic_coding.html">Arithmetic Coding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticCoding"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticCoding.decode"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticCoding.encode"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticCoding.msg_prob"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.msg_prob()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticDecoder"><code class="docutils literal notranslate"><span class="pre">ArithmeticDecoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.ArithmeticDecoder.decode"><code class="docutils literal notranslate"><span class="pre">ArithmeticDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.RangeCoding"><code class="docutils literal notranslate"><span class="pre">RangeCoding</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.RangeCoding.decode"><code class="docutils literal notranslate"><span class="pre">RangeCoding.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.RangeCoding.encode"><code class="docutils literal notranslate"><span class="pre">RangeCoding.encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.RangeDecoder"><code class="docutils literal notranslate"><span class="pre">RangeDecoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arithmetic_coding.html#arithmetic_coding.RangeDecoder.decode"><code class="docutils literal notranslate"><span class="pre">RangeDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral"><code class="docutils literal notranslate"><span class="pre">SymmetricNumeral</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral.decode"><code class="docutils literal notranslate"><span class="pre">SymmetricNumeral.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral.encode"><code class="docutils literal notranslate"><span class="pre">SymmetricNumeral.encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral.shannon_entropy"><code class="docutils literal notranslate"><span class="pre">SymmetricNumeral.shannon_entropy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ANS.html">ANS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html#ANS.rANS"><code class="docutils literal notranslate"><span class="pre">rANS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANS.decode"><code class="docutils literal notranslate"><span class="pre">rANS.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANS.encode"><code class="docutils literal notranslate"><span class="pre">rANS.encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANS.rANS_decode_step"><code class="docutils literal notranslate"><span class="pre">rANS.rANS_decode_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANS.rANS_encode_step"><code class="docutils literal notranslate"><span class="pre">rANS.rANS_encode_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANS.rANS_encoding_table"><code class="docutils literal notranslate"><span class="pre">rANS.rANS_encoding_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html#ANS.rANSDecoder"><code class="docutils literal notranslate"><span class="pre">rANSDecoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ANS.html#ANS.rANSDecoder.decode"><code class="docutils literal notranslate"><span class="pre">rANSDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uABS.html">uABS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html#uABS.uABS_encode_step"><code class="docutils literal notranslate"><span class="pre">uABS_encode_step()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html#uABS.uABS_encoding_table"><code class="docutils literal notranslate"><span class="pre">uABS_encoding_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html#uABS.uABS_encoding_table_for_a_symbol"><code class="docutils literal notranslate"><span class="pre">uABS_encoding_table_for_a_symbol()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sANS.html">Streaming ANS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html#sANS.sANS"><code class="docutils literal notranslate"><span class="pre">sANS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sANS.html#sANS.sANS.decode"><code class="docutils literal notranslate"><span class="pre">sANS.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sANS.html#sANS.sANS.encode"><code class="docutils literal notranslate"><span class="pre">sANS.encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html#sANS.sANSDecoder"><code class="docutils literal notranslate"><span class="pre">sANSDecoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sANS.html#sANS.sANSDecoder.decode"><code class="docutils literal notranslate"><span class="pre">sANSDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file_compressor.html">File Compressor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_compressor.html#file_compressor.rANSFileCompressor"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="file_compressor.html#file_compressor.rANSFileCompressor.decode"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_compressor.html#file_compressor.rANSFileCompressor.file_encode"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.file_encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_compressor.html#file_compressor.rANSFileCompressor.summary"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.ac_utils">utils.ac_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.ac_utils.decToBinConversion"><code class="docutils literal notranslate"><span class="pre">decToBinConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.ac_utils.getBinaryFractionValue"><code class="docutils literal notranslate"><span class="pre">getBinaryFractionValue()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.bit_array_utils">utils.bit_array_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.bit_array_utils.bitarray_to_int"><code class="docutils literal notranslate"><span class="pre">bitarray_to_int()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.bit_array_utils.bitarrays_to_float"><code class="docutils literal notranslate"><span class="pre">bitarrays_to_float()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.bit_array_utils.float_to_bitarrays"><code class="docutils literal notranslate"><span class="pre">float_to_bitarrays()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.bit_array_utils.int_to_bitarray"><code class="docutils literal notranslate"><span class="pre">int_to_bitarray()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.file_utils">utils.file_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.convert_bytes"><code class="docutils literal notranslate"><span class="pre">convert_bytes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.epoch_to_datetime"><code class="docutils literal notranslate"><span class="pre">epoch_to_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.file_creation"><code class="docutils literal notranslate"><span class="pre">file_creation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.file_last_modified"><code class="docutils literal notranslate"><span class="pre">file_last_modified()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.file_name"><code class="docutils literal notranslate"><span class="pre">file_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.file_size"><code class="docutils literal notranslate"><span class="pre">file_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.file_utils.file_summary"><code class="docutils literal notranslate"><span class="pre">file_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.utils">utils.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.utils.convert_list_to_string"><code class="docutils literal notranslate"><span class="pre">convert_list_to_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.utils.encode_symbols_to_integer"><code class="docutils literal notranslate"><span class="pre">encode_symbols_to_integer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.utils.encoding_table"><code class="docutils literal notranslate"><span class="pre">encoding_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.utils.get_symbols"><code class="docutils literal notranslate"><span class="pre">get_symbols()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="PyComP - Python Compression Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.html" class="btn btn-neutral float-right" title="Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

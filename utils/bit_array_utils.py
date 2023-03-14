@@ -5,22 +5,50 @@ import numpy as np
 
 BITARRAY = bitarray.bitarray
 
-def int_to_bitarray(x:int, bit_width = None)-> BITARRAY:
+
+def int_to_bitarray(x: int, bit_width=None) -> BITARRAY:
+    """
+    Converts int to bits.
+    
+    Parameters:
+        x: int
+            integer to be converted
+        bit_width: int, default = None
+            length 
+    Returns:
+        bit: BITARRAY
+            binary equivalent of x
+    """
     assert isinstance(x, int)
     return int2ba(int(x), length=bit_width)
 
+
 def bitarray_to_int(bit_array: BITARRAY):
+    """
+    Converts bitarray to int.
+    
+    Parameters:
+        bit_array: BITARRAY
+            bits to be converted
+    Returns:
+        dec: int
+            decimal_equivalent of bit_array
+    """
     return ba2int(bit_array)
 
 
 def float_to_bitarrays(x: float, max_precision: int) -> Tuple[BITARRAY, BITARRAY]:
-    """convert floating point number to binary with the given max_precision
+    """
+    Convert floating point number to binary with the given max_precision
     Utility function to obtain binary representation of the floating point number.
     We return a tuple of binary representations of the integer part and the fraction part of the
-    floating point number
-    Args:
-        x (float): inpout floating point number
-        max_precision (int): max binary precision (after the decimal point) to which we should return the bitarray
+    floating point number.
+
+    Parameters:
+        x: float
+            input floating point number
+        max_precision: int 
+            max binary precision (after the decimal point) to which we should return the bitarray
     Returns:
         Tuple[BitArray, BitArray]: returns (uint_x_bitarray, frac_x_bitarray)
     """
@@ -38,12 +66,15 @@ def float_to_bitarrays(x: float, max_precision: int) -> Tuple[BITARRAY, BITARRAY
 
 
 def bitarrays_to_float(uint_x_bitarray: BITARRAY, frac_x_bitarray: BITARRAY) -> float:
-    """converts bitarrays corresponding to integer and fractional part of a floatating point number to a float
-    Args:
-        uint_x_bitarray (BitArray): bitarray corresponding to the integer part of x
-        frac_x_bitarray (BitArray): bitarray corresponding to the fractional part of x
+    """Converts bitarrays corresponding to integer and fractional part of a floatating point number to a float.
+
+    Parameters:
+        uint_x_bitarray: BitArray 
+            bitarray corresponding to the integer part of x
+        frac_x_bitarray: BitArray 
+            bitarray corresponding to the fractional part of x
     Returns:
-        float: x, the floating point number
+        x: float, the floating point number 
     """
     # convert uint_x_bitarray to the integer part of the float
     uint_x = bitarray_to_int(uint_x_bitarray)

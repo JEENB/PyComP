@@ -6,6 +6,15 @@ import math
 
 
 class sANS(Data):
+    '''
+    sANS compressor and decompressor class. Inherits the data class.
+    Initializes the rANS class. 
+    Attributes:
+        symbols: list
+                list of all possible symbols
+        frequency: list
+                list of symbol frequency
+    '''
 
     def __init__(self, symbols: list, frequency: list) -> None:
         super().__init__(symbols, frequency)
@@ -19,11 +28,28 @@ class sANS(Data):
             self.all_interval[s] = range(
                 self.freq_dist[s], 2 * self.freq_dist[s])
 
-    def streaming_rANS_encoding(self, initial_state: int, data: list):
+    def encode(self, msg: list, initial_state: int, ):
+        '''
+        sANS encode function 
+
+        Parameters:
+            msg: list
+                data to be encoded. Has to be a list
+            initial_state: int
+                initial state must be >= sum of freq
+        Returns:
+            final_state: int 
+                final encoded value
+        >>> symbols = ['a', 'b', 'c']
+        >>> freq = [5, 5, 2]
+        >>> a = sANS(symbols, freq)
+        >>> a.encode(['a', 'b', 'c', 'c', 'a', 'b'], 14)
+        18 bitarray('00110011010')
+        '''
         assert initial_state >= self.M
         x = initial_state
 
-        for s in data:
+        for s in msg:
             s_interval = self.all_interval[s]
             while x not in s_interval:
                 self.b.append(x % 2)
@@ -31,7 +57,26 @@ class sANS(Data):
             x = self.rans.rANS_encode_step(s, x)
         return x, self.b
 
-    def streaming_rANS_decoding(self, x: int, bit_array: bitarray.bitarray):
+    def decode(self, x: int, bit_array: bitarray.bitarray):
+        '''
+        sANS decode function
+
+        Parameters: 
+            encoded_value: int
+                final state after encoding 
+                this function inherits the probability distribuiton of the symbols.
+                This function assumes that the probability distribuiton is know and the class is instantiated
+            bit_array: bitarray.bitarray
+                the bit output from renormalization
+        Returns:
+            symbols: list
+                the decoded symbols in reverse order
+        >>> symbols = ['a', 'b', 'c']
+        >>> freq = [5, 5, 2]
+        >>> a = rANS(symbols, freq)
+        >>> a.decode(18, bitarray.bitarray('00110011010'))
+        ['a', 'b', 'c', 'c', 'a', 'b']
+        '''
         decoded_symbols = []
         while len(bit_array) != 0:
             s, x = self.rans.rANS_decode_step(x)
@@ -43,11 +88,35 @@ class sANS(Data):
 
 
 class sANSDecoder(Data):
+    '''
+    rANSDecoder class for decoding given symbols and frequency.
+    initializes the sANS class. 
+    Parmaeters:
+        symbols: list
+                a list of symbols
+        frequency: list
+                frequency distribuiton list
+    '''
 
     def __init__(self, symbols: list, frequency: list) -> None:
         super().__init__(symbols, frequency)
         self.sans = sANS(self.symbols, self.frequency)
 
     def decode(self, x: int, bit_array: bitarray.bitarray):
-        decoded_symbols = self.sans.streaming_rANS_decoding(x, bit_array)
+        '''
+        Function to decode, give the correct order
+        Parameters: 
+            encoded_value: int
+                    final state after encoding
+        Returns:
+            decoded symbols: list
+                list of decoded symbols
+        >>> symbols = ['a', 'b', 'c']
+        >>> freq = [5, 5, 2]
+        >>> a = sANSDecoder(symbols, freq)
+        >>> a.decode(18, bitarray.bitarray('00110011010'))
+        ['a', 'b', 'c', 'c', 'a', 'b']
+        '''
+        decoded_symbols = self.sans.decode(x, bit_array)
         return decoded_symbols
+    

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arithmetic Coding &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Symmetric Numeral" href="symmetric_numeral.html" />
+    <link rel="prev" title="Huffman Coding" href="huffman.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PyComP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="huffman.html">Huffman Coding</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Arithmetic Coding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic_coding.ArithmeticCoding"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.ArithmeticCoding.decode"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.ArithmeticCoding.encode"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.ArithmeticCoding.msg_prob"><code class="docutils literal notranslate"><span class="pre">ArithmeticCoding.msg_prob()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic_coding.ArithmeticDecoder"><code class="docutils literal notranslate"><span class="pre">ArithmeticDecoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.ArithmeticDecoder.decode"><code class="docutils literal notranslate"><span class="pre">ArithmeticDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic_coding.RangeCoding"><code class="docutils literal notranslate"><span class="pre">RangeCoding</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.RangeCoding.decode"><code class="docutils literal notranslate"><span class="pre">RangeCoding.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.RangeCoding.encode"><code class="docutils literal notranslate"><span class="pre">RangeCoding.encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic_coding.RangeDecoder"><code class="docutils literal notranslate"><span class="pre">RangeDecoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic_coding.RangeDecoder.decode"><code class="docutils literal notranslate"><span class="pre">RangeDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ANS.html">ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uABS.html">uABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_compressor.html">File Compressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PyComP</a></li>
+      <li class="breadcrumb-item active">Arithmetic Coding</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/arithmetic_coding.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-arithmetic_coding">
+<span id="arithmetic-coding"></span><h1>Arithmetic Coding<a class="headerlink" href="#module-arithmetic_coding" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticCoding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arithmetic_coding.</span></span><span class="sig-name descname"><span class="pre">ArithmeticCoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticCoding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticCoding" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="core.html#core.data.Data" title="core.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
+<p>Class for arithmetic coding compression with out rescaling. Might not be efficient. Inherits the data class. Allows compression in two ways.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>By specifying the symbols and frequency.</dt><dd><p>In this case arg:msg must be provided in the encode step.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>By giving the entire message itself. </dt><dd><p>No argument required in the encode step. 
+Computes the probability and cumulative distribution from the message itself.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols<span class="classifier">list</span></dt><dd><p>list of symbols, elements can be any format</p>
+</dd>
+<dt>frequency: list</dt><dd><p>frequency list associated with the list</p>
+</dd>
+<dt>message: list, default = None</dt><dd><p>list of message.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticCoding.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticCoding.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticCoding.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Using the decoding by checking interval, updating interval, and picking new symbol.</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>encoded_value: bitarray.bitarray</dt><dd><p>bitarray instance of the encoded value.</p>
+</dd>
+<dt>msg_length: int</dt><dd><p>length of the message. needs to be specified to the same number as original msg to get right decoding.</p>
+</dd>
+<dt>show_steps: bool, default = False</dt><dd><p>shows decoding steps.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>decoded_symbols: str</dt><dd><p>returns the decoded symbols</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;abaca&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_value</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">decoded_value</span><span class="p">)</span>
+<span class="go">abaca</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_value</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">,</span> <span class="n">show_steps</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Decoding Process</span>
+<span class="go">------------------</span>
+<span class="go">+--------------+-------------------------+---------------+--------------------------------------------+-----------+</span>
+<span class="go">| Decoded Symb |      Encoded Value      |      Tag      |                   Range                    |  Remark   |</span>
+<span class="go">+--------------+-------------------------+---------------+--------------------------------------------+-----------+</span>
+<span class="go">|      h       | bitarray(&#39;00010001011&#39;) | 0.06787109375 |                  (0, 0.2)                  | Pick next |</span>
+<span class="go">|      he      | bitarray(&#39;00010001011&#39;) | 0.06787109375 | (0.04000000000000001, 0.08000000000000002) | Pick next |</span>
+<span class="go">|     hel      | bitarray(&#39;00010001011&#39;) | 0.06787109375 | (0.05600000000000001, 0.07200000000000001) | Pick next |</span>
+<span class="go">|     hell     | bitarray(&#39;00010001011&#39;) | 0.06787109375 | (0.06240000000000001, 0.06880000000000001) | Pick next |</span>
+<span class="go">|    hello     | bitarray(&#39;00010001011&#39;) | 0.06787109375 | (0.06752000000000001, 0.06880000000000001) | Pick next |</span>
+<span class="go">+--------------+-------------------------+---------------+--------------------------------------------+-----------+</span>
+<span class="go">Decoded Value = hello</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticCoding.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bitarray.bitarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticCoding.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticCoding.encode" title="Permalink to this definition"></a></dt>
+<dd><p>Arithmetic encoding function. Can be used to encdoe in either ways as specifiec before.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>msg: list, default = None</dt><dd><p>message you want to encode</p>
+</dd>
+<dt>show_steps: bool, default = False</dt><dd><p>shows the encoding step</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>encoded_value: BITARRAY</dt><dd><p>binary string of the encoded value.</p>
+</dd>
+<dt>lenght: int</dt><dd><p>length of the message. To specify for decoder.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;abaca&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span>
+<span class="go">bitarray(&#39;10100110110&#39;) 5</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">(</span><span class="n">symbols</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">show_steps</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">Encoding Process</span>
+<span class="go">------------------</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+<span class="go">| Symbol |                  Interval                  |      Remark      |</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+<span class="go">|   h    |                  (0, 0.2)                  | Pick Next Symbol |</span>
+<span class="go">|   he   | (0.04000000000000001, 0.08000000000000002) | Pick Next Symbol |</span>
+<span class="go">|  hel   | (0.05600000000000001, 0.07200000000000001) | Pick Next Symbol |</span>
+<span class="go">|  hell  | (0.06240000000000001, 0.06880000000000001) | Pick Next Symbol |</span>
+<span class="go">| hello  | (0.06752000000000001, 0.06880000000000001) | Pick Next Symbol |</span>
+<span class="go">|        |            Symbols Encoded = 5             |                  |</span>
+<span class="go">|        |         Tag = 0.06816000000000001          |                  |</span>
+<span class="go">|        | Compressed Value = bitarray(&#39;00010001011&#39;) |                  |</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticCoding.msg_prob">
+<span class="sig-name descname"><span class="pre">msg_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticCoding.msg_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticCoding.msg_prob" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Computes the joint probability of message. Requires the class to initianted. </dt><dd><p>P(x_1, x_2, …) = p(x_1).p(x_2). …</p>
+</dd>
+<dt>Parameters:</dt><dd><p>message: list</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>prob: float</dt><dd><p>the probability of the entire message</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">msg_prob</span><span class="p">(</span><span class="s1">&#39;aabcca&#39;</span><span class="p">)</span>
+<span class="go">0.0003317760000000001</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arithmetic_coding.</span></span><span class="sig-name descname"><span class="pre">ArithmeticDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticDecoder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="core.html#core.data.Data" title="core.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
+<p>Arithmetic decoder class. Used only for decoing. Assume a communication channel where the receiver has access to the decoding channel only. instantiates the arithmetic coding class and uses the decoding function.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols<span class="classifier">list</span></dt><dd><p>list of symbols, elements can be any format</p>
+</dd>
+<dt>frequency: list</dt><dd><p>frequency list associated with the list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">ArithmeticDecoder</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">(</span><span class="s1">&#39;10100110110&#39;</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">abaca</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.ArithmeticDecoder.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#ArithmeticDecoder.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.ArithmeticDecoder.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Decodes a bit array using airithmetic coding scheme. 
+Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>encoded_value: bitarray.bitarray</dt><dd><p>bitarray instance of the encoded value.</p>
+</dd>
+<dt>msg_length: int</dt><dd><p>length of the message. needs to be specified to the same number as original msg to get right decoding.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>decoded_symbols: str</dt><dd><p>returns the decoded symbols</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arithmetic_coding.RangeCoding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arithmetic_coding.</span></span><span class="sig-name descname"><span class="pre">RangeCoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#RangeCoding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.RangeCoding" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#arithmetic_coding.ArithmeticCoding" title="arithmetic_coding.ArithmeticCoding"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticCoding</span></code></a></p>
+<p>Class for arithmetic coding compression with rescaling. Might not be efficient. Inherits the arithmetic coding class and changes teh encoding and decodign function. Allows compression in two ways.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>By specifying the symbols and frequency.</dt><dd><p>In this case arg:msg must be provided in the encode step.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>By giving the entire message itself. </dt><dd><p>No argument required in the encode step. 
+Computes the probability and cumulative distribution from the message itself.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols<span class="classifier">list</span></dt><dd><p>list of symbols, elements can be any format</p>
+</dd>
+<dt>frequency: list</dt><dd><p>frequency list associated with the list</p>
+</dd>
+<dt>message: list, default = None</dt><dd><p>list of message.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.RangeCoding.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#RangeCoding.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.RangeCoding.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Using the decoding by checking interval, rescaling, updating interval, and picking new symbol.</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>encoded_value: bitarray.bitarray</dt><dd><p>bitarray instance of the encoded value.</p>
+</dd>
+<dt>msg_length: int</dt><dd><p>length of the message. needs to be specified to the same number as original msg to get right decoding.</p>
+</dd>
+<dt>show_steps: bool, default = False</dt><dd><p>shows decoding steps.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>decoded_symbols: str</dt><dd><p>returns the decoded symbols</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">RangeCoding</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_value</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">(</span><span class="s1">&#39;1010011011&#39;</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">decoded_value</span><span class="p">)</span>
+<span class="go">abaca</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_value</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">,</span> <span class="n">show_steps</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Decoding Process</span>
+<span class="go">------------------</span>
+<span class="go">+--------------+-----------------------+-------------+--------------------------------------------+---------------+</span>
+<span class="go">| Decoded Symb |     Encoded Value     |     Tag     |                   Range                    |    Remark     |</span>
+<span class="go">+--------------+-----------------------+-------------+--------------------------------------------+---------------+</span>
+<span class="go">|      h       | bitarray(&#39;000100011&#39;) | 0.068359375 |                  (0, 0.2)                  | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|      h       | bitarray(&#39;00100011&#39;)  | 0.13671875  |                  (0, 0.4)                  | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|      h       |  bitarray(&#39;0100011&#39;)  |  0.2734375  |                  (0, 0.8)                  |   Pick next   |</span>
+<span class="go">|      he      |  bitarray(&#39;0100011&#39;)  |  0.2734375  | (0.16000000000000003, 0.32000000000000006) | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|      he      |  bitarray(&#39;100011&#39;)   |  0.546875   | (0.32000000000000006, 0.6400000000000001)  |   Pick next   |</span>
+<span class="go">|     hel      |  bitarray(&#39;100011&#39;)   |  0.546875   | (0.44800000000000006, 0.5760000000000001)  |   Pick next   |</span>
+<span class="go">|     hell     |  bitarray(&#39;100011&#39;)   |  0.546875   |  (0.4992000000000001, 0.5504000000000001)  |   Pick next   |</span>
+<span class="go">|    hello     |  bitarray(&#39;100011&#39;)   |  0.546875   |  (0.5401600000000001, 0.5504000000000001)  | Right Scaling |</span>
+<span class="go">|              |                       |             |                                            |   Remove 1    |</span>
+<span class="go">|    hello     |   bitarray(&#39;00011&#39;)   |   0.09375   | (0.08032000000000017, 0.10080000000000022) | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|    hello     |   bitarray(&#39;0011&#39;)    |   0.1875    | (0.16064000000000034, 0.20160000000000045) | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|    hello     |    bitarray(&#39;011&#39;)    |    0.375    |  (0.3212800000000007, 0.4032000000000009)  | Left Scaling  |</span>
+<span class="go">|              |                       |             |                                            |   Remove 0    |</span>
+<span class="go">|    hello     |    bitarray(&#39;11&#39;)     |    0.75     |  (0.6425600000000014, 0.8064000000000018)  | Right Scaling |</span>
+<span class="go">|              |                       |             |                                            |   Remove 1    |</span>
+<span class="go">|    hello     |     bitarray(&#39;1&#39;)     |     0.5     |  (0.2851200000000027, 0.6128000000000036)  |   Pick next   |</span>
+<span class="go">+--------------+-----------------------+-------------+--------------------------------------------+---------------+</span>
+<span class="go">Decoded Value = hello</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.RangeCoding.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bitarray.bitarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arithmetic_coding.html#RangeCoding.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.RangeCoding.encode" title="Permalink to this definition"></a></dt>
+<dd><p>Range encoding function. Can be used to encdoe in either ways as specifiec before.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>msg: list, default = None</dt><dd><p>message you want to encode</p>
+</dd>
+<dt>show_steps: bool, defalut = False</dt><dd><p>shows encoding step</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>encoded_value: BITARRAY</dt><dd><p>binary string of the encoded value.</p>
+</dd>
+<dt>lenght: int</dt><dd><p>length of the message. To specify for decoder.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">RangeCoding</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;abaca&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span>
+<span class="go">bitarray(&#39;1010011011&#39;) 5</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">RangeCoding</span><span class="p">(</span><span class="n">symbols</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">show_steps</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">msg_len</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="go">Encoding Process</span>
+<span class="go">------------------</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+<span class="go">| Symbol |                  Interval                  |      Remark      |</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+<span class="go">|   h    |                  (0, 0.2)                  |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">|   h    |                  (0, 0.4)                  |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">|   h    |                  (0, 0.8)                  | Pick Next Symbol |</span>
+<span class="go">|   he   | (0.16000000000000003, 0.32000000000000006) |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">|   he   | (0.32000000000000006, 0.6400000000000001)  | Pick Next Symbol |</span>
+<span class="go">|  hel   | (0.44800000000000006, 0.5760000000000001)  | Pick Next Symbol |</span>
+<span class="go">|  hell  |  (0.4992000000000001, 0.5504000000000001)  | Pick Next Symbol |</span>
+<span class="go">| hello  |  (0.5401600000000001, 0.5504000000000001)  |  Right Scaling   |</span>
+<span class="go">|        |                                            |    Output = 1    |</span>
+<span class="go">| hello  | (0.08032000000000017, 0.10080000000000022) |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">| hello  | (0.16064000000000034, 0.20160000000000045) |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">| hello  |  (0.3212800000000007, 0.4032000000000009)  |  Left Scaling    |</span>
+<span class="go">|        |                                            |    Output = 0    |</span>
+<span class="go">| hello  |  (0.6425600000000014, 0.8064000000000018)  |  Right Scaling   |</span>
+<span class="go">|        |                                            |    Output = 1    |</span>
+<span class="go">| hello  |  (0.2851200000000027, 0.6128000000000036)  | Pick Next Symbol |</span>
+<span class="go">|        |            Symbols Encoded = 5             |                  |</span>
+<span class="go">|        |  Rescaling Output = bitarray(&#39;000100011&#39;)  |                  |</span>
+<span class="go">|        |                 Tag = 0.5                  |                  |</span>
+<span class="go">|        |  Compressed Value = bitarray(&#39;000100011&#39;)  |                  |</span>
+<span class="go">+--------+--------------------------------------------+------------------+</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arithmetic_coding.RangeDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arithmetic_coding.</span></span><span class="sig-name descname"><span class="pre">RangeDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#RangeDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.RangeDecoder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Range decoder class. Used only for decoing. Assume a communication channel where the receiver has access to the decoding channel only. instantiates the range coding class and uses the decoding function.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>symbols<span class="classifier">list</span></dt><dd><p>list of symbols, elements can be any format</p>
+</dd>
+<dt>frequency: list</dt><dd><p>frequency list associated with the list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">RangeDecoder</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">(</span><span class="s1">&#39;1010011011&#39;</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">abaca</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="arithmetic_coding.RangeDecoder.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arithmetic_coding.html#RangeDecoder.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arithmetic_coding.RangeDecoder.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Decodes a bit array using airithmetic coding scheme. 
+Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>encoded_value: bitarray.bitarray</dt><dd><p>bitarray instance of the encoded value.</p>
+</dd>
+<dt>msg_length: int</dt><dd><p>length of the message. needs to be specified to the same number as original msg to get right decoding.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>decoded_symbols: str</dt><dd><p>returns the decoded symbols</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="huffman.html" class="btn btn-neutral float-left" title="Huffman Coding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="symmetric_numeral.html" class="btn btn-neutral float-right" title="Symmetric Numeral" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

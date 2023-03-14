@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>file_compressor &mdash; PyComP 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyComP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">PyComP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyComP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">file_compressor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for file_compressor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">ANS</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">huffman</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">arithmetic_coding</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sANS</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="n">convert_list_to_string</span>
+
+<span class="n">compressors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;huffman&#39;</span><span class="p">:</span> <span class="n">Huffman</span><span class="p">,</span>
+    <span class="s1">&#39;arithmetic&#39;</span><span class="p">:</span> <span class="n">ArithmeticCoding</span><span class="p">,</span>
+    <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="n">RangeCoding</span><span class="p">,</span>
+    <span class="s1">&#39;rANS&#39;</span><span class="p">:</span> <span class="n">rANS</span><span class="p">,</span>
+    <span class="s1">&#39;sANS&#39;</span><span class="p">:</span> <span class="n">sANS</span>
+<span class="p">}</span>
+<div class="viewcode-block" id="rANSFileCompressor"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor">[docs]</a><span class="k">class</span> <span class="nc">rANSFileCompressor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compresses a file</span>
+
+<span class="sd">    parameter:</span>
+<span class="sd">    ------------</span>
+<span class="sd">    file: str</span>
+<span class="sd">            file location</span>
+
+<span class="sd">    returns: </span>
+<span class="sd">            final_rANS state</span>
+
+<span class="sd">    Note: The decode function can be used given the class has been configured with correct prob distn. </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__parse_file</span><span class="p">()</span>
+
+<div class="viewcode-block" id="rANSFileCompressor.file_encode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.file_encode">[docs]</a>    <span class="k">def</span> <span class="nf">file_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;huffman&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;arithmetic&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">RangeCoding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;rANS&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">rANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">,</span> <span class="n">start_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;sANS&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">sANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">initial_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span></div>
+
+    <span class="k">def</span> <span class="nf">__parse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function to parse a file. Creates a list of all symbols and computes the frequency distribution of file. </span>
+<span class="sd">        : return:</span>
+<span class="sd">        symbols and frequency as a class instance</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<div class="viewcode-block" id="rANSFileCompressor.summary"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        function that gives summary of the file</span>
+<span class="sd">        :</span>
+<span class="sd">        file_name</span>
+<span class="sd">        file_size</span>
+<span class="sd">        file_creation_tiem</span>
+<span class="sd">        file_modification_time</span>
+<span class="sd">        total_symbols</span>
+<span class="sd">        unique_symbols</span>
+<span class="sd">        frequeency_dist</span>
+<span class="sd">        shannon_entrory</span>
+<span class="sd">        compressed_size</span>
+<span class="sd">        compression_ratio</span>
+
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">creation</span><span class="p">,</span> <span class="n">modification</span> <span class="o">=</span> <span class="n">file_summary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">compression_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span><span class="p">))</span><span class="o">/</span><span class="mi">8</span>  <span class="c1"># converts to bytes</span>
+        <span class="n">compression_ratio</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">compression_size</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">size</span><span class="si">}</span><span class="s2">%&quot;</span>
+        <span class="n">size_conv</span> <span class="o">=</span> <span class="n">convert_bytes</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">compression_size_conv</span> <span class="o">=</span> <span class="n">convert_bytes</span><span class="p">(</span><span class="n">compression_size</span><span class="p">)</span>
+        <span class="n">total_symbols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span>
+        <span class="n">unique_symbols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">)</span>
+
+        <span class="n">summ</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">&#39;File Name&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;Total Symbols&quot;</span><span class="p">,</span> <span class="n">total_symbols</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Unique Symbols&#39;</span><span class="p">,</span> <span class="n">unique_symbols</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;File Size&#39;</span><span class="p">,</span> <span class="n">size_conv</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;File Created&#39;</span><span class="p">,</span> <span class="n">creation</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Last Modified&#39;</span><span class="p">,</span> <span class="n">modification</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Compressed File Size&#39;</span><span class="p">,</span> <span class="n">compression_size_conv</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Compression Ratio&#39;</span><span class="p">,</span> <span class="n">compression_ratio</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">summ</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;pretty&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="rANSFileCompressor.decode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">decoded_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">decoded_symbols</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="n">output</span></div></div>
+
+
+    <span class="c1"># def create_aux_file(self):</span>
+    <span class="c1">#     &#39;&#39;&#39;</span>
+    <span class="c1">#     creates an auxiliary file with symbols and their frequency distribution: for decompressor</span>
+    <span class="c1">#     consists of:</span>
+    <span class="c1">#             symbols, frequency, file_name</span>
+    <span class="c1">#     using this becomes counter intuituve as the aux_file will have size &gt; original file. </span>
+    <span class="c1">#     &#39;&#39;&#39;</span>
+
+<span class="c1"># f = rANSFileCompressor(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/lib/tests/test1.txt&#39;)</span>
+<span class="c1"># print(f.file_encode(&#39;arithmetic&#39;))</span>
+<span class="c1"># class rANSFileDecompressor(rANSDecoder):</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     rANS file decompressor class</span>
+<span class="c1">#     inherits the rANSDecoder class</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+
+<span class="c1">#     def __init__(self, symbols: list, frequency: list, encoded_value: int) -&gt; None:</span>
+<span class="c1">#         super().__init__(symbols, frequency)</span>
+<span class="c1">#         self.encoded_val = encoded_value</span>
+
+<span class="c1">#     def file_decode(self):</span>
+<span class="c1">#         decoded_symbols = self.decode(self.encoded_val)</span>
+<span class="c1">#         output = &#39;&#39;</span>
+<span class="c1">#         for s in decoded_symbols:</span>
+<span class="c1">#             output += s</span>
+<span class="c1">#         return output</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jenish Raj Bajracharya.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
