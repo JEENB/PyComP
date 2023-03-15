@@ -1,0 +1,14 @@
+LICENSE
+setup.py
+PyComP/ANS.py
+PyComP/arithmetic_coding.py
+PyComP/file_compressor.py
+PyComP/huffman.py
+PyComP/sANS.py
+PyComP/symmetric_numeral.py
+PyComP/uABS.py
+PyComP_Python_Compression_Library.egg-info/PKG-INFO
+PyComP_Python_Compression_Library.egg-info/SOURCES.txt
+PyComP_Python_Compression_Library.egg-info/dependency_links.txt
+PyComP_Python_Compression_Library.egg-info/requires.txt
+PyComP_Python_Compression_Library.egg-info/top_level.txt

@@ -6,12 +6,13 @@ setup(
     author="Jenish Raj Bajracharya",
     author_email="bjenish12@gmail.com",
     packages=["PyComP"],
-    description="A library of common compressors",
+    description="A small-scale library of common compressors",
     license="MIT",
     install_requires=[
         "pytest",
         "numpy",
         "bitarray",
-        "typing",    
+        "typing",
+        "pandas",    
     ],
 )
