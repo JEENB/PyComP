@@ -1,8 +1,8 @@
-from ANS import *
-from huffman import *
-from arithmetic_coding import *
-from sANS import *
-from utils.utils import convert_list_to_string
+from PyComP.compressors.ANS import *
+from PyComP.compressors.huffman import *
+from PyComP.compressors.arithmetic_coding import *
+from PyComP.compressors.sANS import *
+from PyComP.utils.utils import convert_list_to_string
 
 compressors = {
     'huffman': Huffman,

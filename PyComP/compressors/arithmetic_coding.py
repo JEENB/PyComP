@@ -1,8 +1,8 @@
 import math
 import tabulate
-from utils.ac_utils import *
-from core.data import *
-from utils.bit_array_utils import float_to_bitarrays, bitarrays_to_float
+from PyComP.utils.ac_utils import *
+from PyComP.core.data import *
+from PyComP.utils.bit_array_utils import float_to_bitarrays, bitarrays_to_float
 import bitarray
 from typing import Tuple
 

@@ -1,4 +1,4 @@
-from core.data import *
+from PyComP.core.data import *
 from typing import Tuple
 import numpy as np
 from typing import Tuple

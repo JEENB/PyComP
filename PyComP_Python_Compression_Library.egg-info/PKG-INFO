@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: PyComP-Python-Compression-Library
+Version: 1.0
+Summary: A small-scale library of common compressors
+Author: Jenish Raj Bajracharya
+Author-email: bjenish12@gmail.com
+License: MIT
+License-File: LICENSE

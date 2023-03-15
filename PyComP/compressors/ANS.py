@@ -1,6 +1,6 @@
-from core.data import *
-from utils.utils import *
-from utils.file_utils import *
+from PyComP.core.data import *
+from PyComP.utils.utils import *
+from PyComP.utils.file_utils import *
 from typing import Tuple
 
 # states are not defined as python allows for infinite integer precision
@@ -159,14 +159,3 @@ class rANSDecoder(Data):
         '''
         symbols = self.rans.decode(encoded_value, msg_len)
         return symbols
-    
-s = ['a', 'b', 'c', 'd']
-f = [3, 3, 2, 2]
-c = rANS(s, f)
-x_1 = c.rANS_encode_step('d', 1)
-x_2 = c.rANS_encode_step('a', x_1)
-x_3 = c.rANS_encode_step('b', x_2)
-x_4 = c.rANS_encode_step('b', x_3)
-x_5 = c.rANS_encode_step('c', x_4)
-x_6 = c.rANS_encode_step('a',x_5)
-print(x_1, x_2, x_3, x_4, x_5, x_6)
