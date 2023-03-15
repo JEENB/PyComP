@@ -72,18 +72,28 @@
   <section id="pycomp-python-compression-library">
 <h1>PyComP - Python Compression Library<a class="headerlink" href="#pycomp-python-compression-library" title="Permalink to this heading"></a></h1>
 <p>PyComP is a Python library for compressing and decompressing data. It provides a simple and efficient way to reduce the size of data files without losing any information.</p>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
+<p><strong>Features</strong></p>
 <p>PyComP has a range of features that make it a powerful tool for data compression:</p>
 <ul class="simple">
 <li><p><strong>Supports multiple algorithms:</strong> PyComP supports several compression algorithms, including Huffman, Arithmetic, Range, ABS and ANS, which can be selected based on your specific requirements.</p></li>
 <li><p><strong>Customizable compression level:</strong> PyComP allows you to specify the compression level, which determines the balance between compression ratio and speed. Higher levels result in smaller file sizes but slower processing times.</p></li>
 <li><p><strong>Easy-to-use functions:</strong> PyComP provides a range of convenient functions for compressing and decompressing data and files.</p></li>
 </ul>
-</section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
-<p>Installing PyComP is quick and easy! You can use pip to install it directly from the command line:</p>
+<p><strong>Compression algorithms</strong></p>
+<p>Here is a list of algorithms implemented.</p>
+<ul class="simple">
+<li><p><cite>Huffman codes &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/huffman.py&gt;</cite></p></li>
+<li><p><cite>rANS &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/rANS.py&gt;</cite></p></li>
+<li><p><cite>sANS &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/sANS.py&gt;</cite></p></li>
+<li><p><cite>uABS &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/uABS.py&gt;</cite></p></li>
+<li><p><cite>Arithmetic coder &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/arithmetic.py&gt;</cite></p></li>
+<li><p><cite>Symmetric Numeral &lt;https://github.com/JEENB/PyComP/blob/version1.0/PyComP/compressors/symmetric_numeral.py&gt;</cite></p></li>
+</ul>
+<p><strong>Install the `PyComP` package</strong></p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">&lt;repo&gt;</span> <span class="pre">and</span> <span class="pre">cd</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span> <span class="pre">#install</span> <span class="pre">the</span> <span class="pre">package</span> <span class="pre">in</span> <span class="pre">a</span> <span class="pre">editable</span> <span class="pre">mode</span></code></p>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -101,7 +111,6 @@
 </li>
 </ul>
 </div>
-</section>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>

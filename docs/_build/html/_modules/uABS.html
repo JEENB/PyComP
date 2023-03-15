@@ -68,7 +68,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for uABS</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">log2</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <div class="viewcode-block" id="uABS"><a class="viewcode-back" href="../uABS.html#uABS.uABS">[docs]</a><span class="k">class</span> <span class="nc">uABS</span><span class="p">:</span>
@@ -76,6 +76,10 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
 
+<div class="viewcode-block" id="uABS.shannon_entropy"><a class="viewcode-back" href="../uABS.html#uABS.uABS.shannon_entropy">[docs]</a>    <span class="k">def</span> <span class="nf">shannon_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entropy</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">*</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">entropy</span></div>
+    
 <div class="viewcode-block" id="uABS.uABS_encode_step"><a class="viewcode-back" href="../uABS.html#uABS.uABS.uABS_encode_step">[docs]</a>    <span class="k">def</span> <span class="nf">uABS_encode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x_prev</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">((</span><span class="n">x_prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
@@ -105,13 +109,6 @@
             <span class="n">s</span><span class="p">,</span> <span class="n">x_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uABS_decode_step</span><span class="p">(</span><span class="n">x_prev</span><span class="p">)</span>
             <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span></div></div>
-    
-
-
-<span class="c1"># x, le = u.encode(&#39;10000101&#39;)</span>
-<span class="c1"># print(x)</span>
-<span class="c1"># print(u.decode(x, le))</span>
-
 </pre></div>
 
            </div>

@@ -1,6 +1,6 @@
-from core.data import *
-from utils.utils import *
-from utils.file_utils import *
+from PyComP.core.data import *
+from PyComP.utils.utils import *
+from PyComP.utils.file_utils import *
 from typing import Tuple
 
 # states are not defined as python allows for infinite integer precision
