@@ -64,4 +64,3 @@ class SymmetricNumeral:
             x = x // self.base
         decoded_list.append(x)
         return [i for i in reversed(decoded_list)]
-

@@ -606,10 +606,3 @@ class RangeDecoder:
         '''
         symbols = self.coding_func.decode(encoded_value, msg_length)
         return symbols
-
-# r = RangeCoding(['a','b','c','d'], [4,4,4,4])
-# s = ['c', 'a', 'd', 'c', 'c', 'c', 'c', 'a', 'd', 'a', 'a', 'b', 'd', 'd', 'c', 'a', 'a', 'c', 'c', 'a', 'a', 'd', 'd', 'a', 'c', 'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'b', 'c', 'b', 'd', 'd', 'b', 'a', 'b', 'c', 'b', 'b', 'a', 'b', 'c', 'c', 'a', 'd']
-# print(len(s)) 
-# enc, bit = r.encode(s)
-# dec  = r.decode(enc, bit)
-

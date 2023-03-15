@@ -39,5 +39,3 @@ class uABS:
             s, x_prev = self.uABS_decode_step(x_prev)
             symbols.append(s)
         return list(reversed(symbols))
-    
-

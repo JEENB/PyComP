@@ -120,4 +120,3 @@ class sANSDecoder(Data):
         '''
         decoded_symbols = self.sans.decode(x, bit_array)
         return decoded_symbols
-    
