@@ -32,7 +32,7 @@ Here is a list of algorithms implemented.
    frequency = [9,8,4,7,6,1]
 
    compressor = rANS(symbols, frequency)
-   encoded_msg , _ = compressor.encode(msg = ['q','q','w','w','e','e','r'])
+   encoded_msg , _ = compressor.encode(msg = ['q','q','w','w','e','e','r'], start_state =0)
    print(encoded_msg)
    ```
 ## Contact
