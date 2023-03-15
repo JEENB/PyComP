@@ -73,6 +73,7 @@
 <span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">utils.file_utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">tabulate</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
 <span class="c1"># states are not defined as python allows for infinite integer precision</span>
 
@@ -109,7 +110,7 @@
         <span class="n">x</span> <span class="o">=</span> <span class="n">block</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="n">slot</span>
         <span class="k">return</span> <span class="n">x</span></div>
 
-<div class="viewcode-block" id="rANS.encode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">start_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="rANS.encode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">start_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        rANS encode function </span>
 
@@ -131,7 +132,7 @@
         <span class="n">x</span> <span class="o">=</span> <span class="n">start_state</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rANS_encode_step</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span></div>
+        <span class="k">return</span> <span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="rANS.rANS_decode_step"><a class="viewcode-back" href="../ANS.html#ANS.rANS.rANS_decode_step">[docs]</a>    <span class="k">def</span> <span class="nf">rANS_decode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_next</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -143,7 +144,7 @@
         <span class="n">x_prev</span> <span class="o">=</span> <span class="n">block_id</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">]</span> <span class="o">+</span> <span class="n">slot</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cum_dist</span><span class="p">[</span><span class="n">decoded_symb</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">decoded_symb</span><span class="p">,</span> <span class="n">x_prev</span></div>
 
-<div class="viewcode-block" id="rANS.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="rANS.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        rANS decode function</span>
 
@@ -161,7 +162,7 @@
 <span class="sd">        &gt;&gt;&gt; a.decode(1242,6)</span>
 <span class="sd">        [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;]</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">x_prev</span> <span class="o">=</span> <span class="n">encoded_value</span>
+        <span class="n">x_prev</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span> <span class="o">!=</span> <span class="n">msg_len</span><span class="p">:</span>
             <span class="n">block_id</span> <span class="o">=</span> <span class="n">x_prev</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
@@ -213,7 +214,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rans</span> <span class="o">=</span> <span class="n">rANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
 
-<div class="viewcode-block" id="rANSDecoder.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANSDecoder.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="rANSDecoder.decode"><a class="viewcode-back" href="../ANS.html#ANS.rANSDecoder.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Function to decode, give the correct order</span>
 <span class="sd">        Parameters: </span>

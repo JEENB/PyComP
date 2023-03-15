@@ -98,7 +98,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">all_interval</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_dist</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
 
-<div class="viewcode-block" id="sANS.encode"><a class="viewcode-back" href="../sANS.html#sANS.sANS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">initial_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="p">):</span>
+<div class="viewcode-block" id="sANS.encode"><a class="viewcode-back" href="../sANS.html#sANS.sANS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        sANS encode function </span>
 
@@ -110,14 +110,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            final_state: int </span>
 <span class="sd">                final encoded value</span>
+<span class="sd">            bit_output: bitarray.bitarray</span>
+<span class="sd">                bit output from rescaling</span>
 <span class="sd">        &gt;&gt;&gt; symbols = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
 <span class="sd">        &gt;&gt;&gt; freq = [5, 5, 2]</span>
 <span class="sd">        &gt;&gt;&gt; a = sANS(symbols, freq)</span>
 <span class="sd">        &gt;&gt;&gt; a.encode([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;], 14)</span>
 <span class="sd">        18 bitarray(&#39;00110011010&#39;)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">assert</span> <span class="n">initial_state</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">initial_state</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span>
 
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
             <span class="n">s_interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_interval</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
@@ -125,9 +126,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">//</span><span class="mi">2</span>
             <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rans</span><span class="o">.</span><span class="n">rANS_encode_step</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span></div>
+        <span class="k">return</span> <span class="nb">bin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span></div>
 
-<div class="viewcode-block" id="sANS.decode"><a class="viewcode-back" href="../sANS.html#sANS.sANS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bit_array</span><span class="p">:</span> <span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">):</span>
+<div class="viewcode-block" id="sANS.decode"><a class="viewcode-back" href="../sANS.html#sANS.sANS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bit_array</span><span class="p">:</span> <span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        sANS decode function</span>
 
@@ -148,6 +149,7 @@
 <span class="sd">        [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;]</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">decoded_symbols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">bit_array</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rans</span><span class="o">.</span><span class="n">rANS_decode_step</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="n">decoded_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -172,7 +174,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sans</span> <span class="o">=</span> <span class="n">sANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
 
-<div class="viewcode-block" id="sANSDecoder.decode"><a class="viewcode-back" href="../sANS.html#sANS.sANSDecoder.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bit_array</span><span class="p">:</span> <span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">):</span>
+<div class="viewcode-block" id="sANSDecoder.decode"><a class="viewcode-back" href="../sANS.html#sANS.sANSDecoder.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bit_array</span><span class="p">:</span> <span class="n">bitarray</span><span class="o">.</span><span class="n">bitarray</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Function to decode, give the correct order</span>
 <span class="sd">        Parameters: </span>

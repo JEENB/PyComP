@@ -112,7 +112,7 @@ Attributes:</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="sANS.sANS.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANS.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANS.decode" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANS.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANS.decode" title="Permalink to this definition"></a></dt>
 <dd><p>sANS decode function</p>
 <dl class="simple">
 <dt>Parameters: </dt><dd><dl class="simple">
@@ -141,7 +141,7 @@ This function assumes that the probability distribuiton is know and the class is
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sANS.sANS.encode">
-<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANS.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANS.encode" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANS.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANS.encode" title="Permalink to this definition"></a></dt>
 <dd><p>sANS encode function</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
@@ -153,6 +153,8 @@ This function assumes that the probability distribuiton is know and the class is
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>final_state: int </dt><dd><p>final encoded value</p>
+</dd>
+<dt>bit_output: bitarray.bitarray</dt><dd><p>bit output from rescaling</p>
 </dd>
 </dl>
 </dd>
@@ -185,7 +187,7 @@ Parmaeters:</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="sANS.sANSDecoder.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANSDecoder.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANSDecoder.decode" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bitarray.bitarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sANS.html#sANSDecoder.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sANS.sANSDecoder.decode" title="Permalink to this definition"></a></dt>
 <dd><p>Function to decode, give the correct order
 Parameters:</p>
 <blockquote>

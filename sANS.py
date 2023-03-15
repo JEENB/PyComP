@@ -28,7 +28,7 @@ class sANS(Data):
             self.all_interval[s] = range(
                 self.freq_dist[s], 2 * self.freq_dist[s])
 
-    def encode(self, msg: list, initial_state: int, ):
+    def encode(self, msg: list):
         '''
         sANS encode function 
 
@@ -40,14 +40,15 @@ class sANS(Data):
         Returns:
             final_state: int 
                 final encoded value
+            bit_output: bitarray.bitarray
+                bit output from rescaling
         >>> symbols = ['a', 'b', 'c']
         >>> freq = [5, 5, 2]
         >>> a = sANS(symbols, freq)
         >>> a.encode(['a', 'b', 'c', 'c', 'a', 'b'], 14)
         18 bitarray('00110011010')
         '''
-        assert initial_state >= self.M
-        x = initial_state
+        x = self.M + 2
 
         for s in msg:
             s_interval = self.all_interval[s]
@@ -55,9 +56,9 @@ class sANS(Data):
                 self.b.append(x % 2)
                 x = x//2
             x = self.rans.rANS_encode_step(s, x)
-        return x, self.b
+        return bin(x), self.b
 
-    def decode(self, x: int, bit_array: bitarray.bitarray):
+    def decode(self, x: str, bit_array: bitarray.bitarray):
         '''
         sANS decode function
 
@@ -78,6 +79,7 @@ class sANS(Data):
         ['a', 'b', 'c', 'c', 'a', 'b']
         '''
         decoded_symbols = []
+        x = int(x, 2)
         while len(bit_array) != 0:
             s, x = self.rans.rANS_decode_step(x)
             decoded_symbols.append(s)
@@ -102,7 +104,7 @@ class sANSDecoder(Data):
         super().__init__(symbols, frequency)
         self.sans = sANS(self.symbols, self.frequency)
 
-    def decode(self, x: int, bit_array: bitarray.bitarray):
+    def decode(self, x: str, bit_array: bitarray.bitarray):
         '''
         Function to decode, give the correct order
         Parameters: 

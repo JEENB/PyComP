@@ -148,6 +148,8 @@
         <li><a href="core.html#module-core.data">module</a>
 </li>
       </ul></li>
+      <li><a href="file_compressor.html#file_compressor.FileCompressor.create_aux_file">create_aux_file() (file_compressor.FileCompressor method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -169,7 +171,7 @@
 </li>
         <li><a href="arithmetic_coding.html#arithmetic_coding.RangeDecoder.decode">(arithmetic_coding.RangeDecoder method)</a>
 </li>
-        <li><a href="file_compressor.html#file_compressor.rANSFileCompressor.decode">(file_compressor.rANSFileCompressor method)</a>
+        <li><a href="file_compressor.html#file_compressor.FileCompressor.decode">(file_compressor.FileCompressor method)</a>
 </li>
         <li><a href="huffman.html#huffman.Huffman.decode">(huffman.Huffman static method)</a>
 </li>
@@ -178,6 +180,8 @@
         <li><a href="sANS.html#sANS.sANSDecoder.decode">(sANS.sANSDecoder method)</a>
 </li>
         <li><a href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral.decode">(symmetric_numeral.SymmetricNumeral method)</a>
+</li>
+        <li><a href="uABS.html#uABS.uABS.decode">(uABS.uABS method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -203,6 +207,8 @@
 </li>
         <li><a href="symmetric_numeral.html#symmetric_numeral.SymmetricNumeral.encode">(symmetric_numeral.SymmetricNumeral method)</a>
 </li>
+        <li><a href="uABS.html#uABS.uABS.encode">(uABS.uABS method)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -227,17 +233,19 @@
       </ul></li>
       <li><a href="utils.html#utils.file_utils.file_creation">file_creation() (in module utils.file_utils)</a>
 </li>
-      <li><a href="file_compressor.html#file_compressor.rANSFileCompressor.file_encode">file_encode() (file_compressor.rANSFileCompressor method)</a>
+      <li><a href="file_compressor.html#file_compressor.FileCompressor.file_encode">file_encode() (file_compressor.FileCompressor method)</a>
+</li>
+      <li><a href="utils.html#utils.file_utils.file_last_modified">file_last_modified() (in module utils.file_utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#utils.file_utils.file_last_modified">file_last_modified() (in module utils.file_utils)</a>
-</li>
       <li><a href="utils.html#utils.file_utils.file_name">file_name() (in module utils.file_utils)</a>
 </li>
       <li><a href="utils.html#utils.file_utils.file_size">file_size() (in module utils.file_utils)</a>
 </li>
       <li><a href="utils.html#utils.file_utils.file_summary">file_summary() (in module utils.file_utils)</a>
+</li>
+      <li><a href="file_compressor.html#file_compressor.FileCompressor">FileCompressor (class in file_compressor)</a>
 </li>
       <li><a href="utils.html#utils.bit_array_utils.float_to_bitarrays">float_to_bitarrays() (in module utils.bit_array_utils)</a>
 </li>
@@ -351,17 +359,15 @@
 </li>
       <li><a href="ANS.html#ANS.rANS">rANS (class in ANS)</a>
 </li>
-      <li><a href="ANS.html#ANS.rANS.rANS_decode_step">rANS_decode_step() (ANS.rANS method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ANS.html#ANS.rANS.rANS_decode_step">rANS_decode_step() (ANS.rANS method)</a>
+</li>
       <li><a href="ANS.html#ANS.rANS.rANS_encode_step">rANS_encode_step() (ANS.rANS method)</a>
 </li>
       <li><a href="ANS.html#ANS.rANS.rANS_encoding_table">rANS_encoding_table() (ANS.rANS method)</a>
 </li>
       <li><a href="ANS.html#ANS.rANSDecoder">rANSDecoder (class in ANS)</a>
-</li>
-      <li><a href="file_compressor.html#file_compressor.rANSFileCompressor">rANSFileCompressor (class in file_compressor)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -390,7 +396,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="huffman.html#huffman.Huffman.show_table">show_table() (huffman.Huffman method)</a>
 </li>
-      <li><a href="file_compressor.html#file_compressor.rANSFileCompressor.summary">summary() (file_compressor.rANSFileCompressor method)</a>
+      <li><a href="file_compressor.html#file_compressor.FileCompressor.summary">summary() (file_compressor.FileCompressor method)</a>
 </li>
       <li>
     symmetric_numeral
@@ -414,11 +420,11 @@
         <li><a href="uABS.html#module-uABS">module</a>
 </li>
       </ul></li>
-      <li><a href="uABS.html#uABS.uABS_encode_step">uABS_encode_step() (in module uABS)</a>
+      <li><a href="uABS.html#uABS.uABS">uABS (class in uABS)</a>
 </li>
-      <li><a href="uABS.html#uABS.uABS_encoding_table">uABS_encoding_table() (in module uABS)</a>
+      <li><a href="uABS.html#uABS.uABS.uABS_decode_step">uABS_decode_step() (uABS.uABS method)</a>
 </li>
-      <li><a href="uABS.html#uABS.uABS_encoding_table_for_a_symbol">uABS_encoding_table_for_a_symbol() (in module uABS)</a>
+      <li><a href="uABS.html#uABS.uABS.uABS_encode_step">uABS_encode_step() (uABS.uABS method)</a>
 </li>
       <li>
     utils

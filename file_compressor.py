@@ -29,24 +29,32 @@ class FileCompressor:
     def __init__(self, file):
         self.file = file
         self.__parse_file()
-        print(self.symbols, self.frequency)
 
     def file_encode(self, compressor):
+        '''
+        Given a compression algorithm compressed a file. 
+        Parameters:
+            compressor: str
+                compression algorithm either from huffman, airhtmetic, range, rANS, sANS
+        Returns:
+            encodec_value: int | str | Tuple
+                the encoded value can be anything depending on the output of the compression algorithm. 
+        '''
         if compressor == 'huffman':
             self.compres = Huffman(self.symbols, self.frequency)
-            self.encoded_value = self.compres.encode(msg = self.all_symbols)
+            self.encoded_value = self.compres.encode(msg = self.all_symbols) ## enc_value, root_node
         if compressor == 'arithmetic':
             self.compres = ArithmeticCoding(self.symbols, self.frequency)
-            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols))
+            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols)) #encoded_val, msg_len
         if compressor == 'range':
             self.compres = RangeCoding(self.symbols, self.frequency)
-            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols))
+            self.encoded_value = self.compres.encode(msg = convert_list_to_string(self.all_symbols))#encoded_val, msg_len
         if compressor == 'rANS':
             self.compres = rANS(self.symbols, self.frequency) 
-            self.encoded_value = self.compres.encode(data = self.all_symbols, start_state=0)
+            self.encoded_value = self.compres.encode(data = self.all_symbols, start_state=0)# binary string
         if compressor == 'sANS':
             self.compres = sANS(self.symbols, self.frequency) 
-            self.encoded_value = self.compres.encode(initial_state = self.compres.M + 2,data = self.all_symbols)
+            self.encoded_value, bit = self.compres.encode(initial_state = self.compres.M + 2,data = self.all_symbols) # binary string, bitarray
 
         return self.encoded_value
 
@@ -115,29 +123,11 @@ class FileCompressor:
         return output
 
 
-    # def create_aux_file(self):
-    #     '''
-    #     creates an auxiliary file with symbols and their frequency distribution: for decompressor
-    #     consists of:
-    #             symbols, frequency, file_name
-    #     using this becomes counter intuituve as the aux_file will have size > original file. 
-    #     '''
-
-f = FileCompressor('/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/lib/tests/test1.txt')
-print(f.file_encode('range'))
-# class rANSFileDecompressor(rANSDecoder):
-#     '''
-#     rANS file decompressor class
-#     inherits the rANSDecoder class
-#     '''
-
-#     def __init__(self, symbols: list, frequency: list, encoded_value: int) -> None:
-#         super().__init__(symbols, frequency)
-#         self.encoded_val = encoded_value
-
-#     def file_decode(self):
-#         decoded_symbols = self.decode(self.encoded_val)
-#         output = ''
-#         for s in decoded_symbols:
-#             output += s
-#         return output
+    def create_aux_file(self):
+        '''
+        creates an auxiliary file with symbols and their frequency distribution: for decompressor
+        consists of:
+                symbols, frequency, file_name
+        using this becomes counter intuituve as the aux_file will have size > original file. 
+        '''
+        pass

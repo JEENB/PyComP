@@ -81,7 +81,7 @@
     <span class="s1">&#39;rANS&#39;</span><span class="p">:</span> <span class="n">rANS</span><span class="p">,</span>
     <span class="s1">&#39;sANS&#39;</span><span class="p">:</span> <span class="n">sANS</span>
 <span class="p">}</span>
-<div class="viewcode-block" id="rANSFileCompressor"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor">[docs]</a><span class="k">class</span> <span class="nc">rANSFileCompressor</span><span class="p">:</span>
+<div class="viewcode-block" id="FileCompressor"><a class="viewcode-back" href="../file_compressor.html#file_compressor.FileCompressor">[docs]</a><span class="k">class</span> <span class="nc">FileCompressor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compresses a file</span>
 
@@ -100,22 +100,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__parse_file</span><span class="p">()</span>
 
-<div class="viewcode-block" id="rANSFileCompressor.file_encode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.file_encode">[docs]</a>    <span class="k">def</span> <span class="nf">file_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressor</span><span class="p">):</span>
+<div class="viewcode-block" id="FileCompressor.file_encode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.FileCompressor.file_encode">[docs]</a>    <span class="k">def</span> <span class="nf">file_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a compression algorithm compressed a file. </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            compressor: str</span>
+<span class="sd">                compression algorithm either from huffman, airhtmetic, range, rANS, sANS</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            encodec_value: int | str | Tuple</span>
+<span class="sd">                the encoded value can be anything depending on the output of the compression algorithm. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;huffman&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">Huffman</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span> <span class="c1">## enc_value, root_node</span>
         <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;arithmetic&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">ArithmeticCoding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span> <span class="c1">#encoded_val, msg_len</span>
         <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">RangeCoding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="n">convert_list_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">))</span><span class="c1">#encoded_val, msg_len</span>
         <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;rANS&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">rANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">,</span> <span class="n">start_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">,</span> <span class="n">start_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1"># binary string</span>
         <span class="k">if</span> <span class="n">compressor</span> <span class="o">==</span> <span class="s1">&#39;sANS&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compres</span> <span class="o">=</span> <span class="n">sANS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">initial_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span><span class="p">,</span> <span class="n">bit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">initial_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_symbols</span><span class="p">)</span> <span class="c1"># binary string, bitarray</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_value</span></div>
 
@@ -139,7 +148,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_freq</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
-<div class="viewcode-block" id="rANSFileCompressor.summary"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FileCompressor.summary"><a class="viewcode-back" href="../file_compressor.html#file_compressor.FileCompressor.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        function that gives summary of the file</span>
 <span class="sd">        :</span>
@@ -176,40 +185,22 @@
         <span class="p">]</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">summ</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;pretty&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="rANSFileCompressor.decode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.rANSFileCompressor.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="FileCompressor.decode"><a class="viewcode-back" href="../file_compressor.html#file_compressor.FileCompressor.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoded_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">decoded_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compres</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">decoded_symbols</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">+=</span> <span class="n">s</span>
-        <span class="k">return</span> <span class="n">output</span></div></div>
+        <span class="k">return</span> <span class="n">output</span></div>
 
 
-    <span class="c1"># def create_aux_file(self):</span>
-    <span class="c1">#     &#39;&#39;&#39;</span>
-    <span class="c1">#     creates an auxiliary file with symbols and their frequency distribution: for decompressor</span>
-    <span class="c1">#     consists of:</span>
-    <span class="c1">#             symbols, frequency, file_name</span>
-    <span class="c1">#     using this becomes counter intuituve as the aux_file will have size &gt; original file. </span>
-    <span class="c1">#     &#39;&#39;&#39;</span>
-
-<span class="c1"># f = rANSFileCompressor(&#39;/Users/jenish/Library/CloudStorage/Dropbox/crypto/ANS/code/lib/tests/test1.txt&#39;)</span>
-<span class="c1"># print(f.file_encode(&#39;arithmetic&#39;))</span>
-<span class="c1"># class rANSFileDecompressor(rANSDecoder):</span>
-<span class="c1">#     &#39;&#39;&#39;</span>
-<span class="c1">#     rANS file decompressor class</span>
-<span class="c1">#     inherits the rANSDecoder class</span>
-<span class="c1">#     &#39;&#39;&#39;</span>
-
-<span class="c1">#     def __init__(self, symbols: list, frequency: list, encoded_value: int) -&gt; None:</span>
-<span class="c1">#         super().__init__(symbols, frequency)</span>
-<span class="c1">#         self.encoded_val = encoded_value</span>
-
-<span class="c1">#     def file_decode(self):</span>
-<span class="c1">#         decoded_symbols = self.decode(self.encoded_val)</span>
-<span class="c1">#         output = &#39;&#39;</span>
-<span class="c1">#         for s in decoded_symbols:</span>
-<span class="c1">#             output += s</span>
-<span class="c1">#         return output</span>
+<div class="viewcode-block" id="FileCompressor.create_aux_file"><a class="viewcode-back" href="../file_compressor.html#file_compressor.FileCompressor.create_aux_file">[docs]</a>    <span class="k">def</span> <span class="nf">create_aux_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        creates an auxiliary file with symbols and their frequency distribution: for decompressor</span>
+<span class="sd">        consists of:</span>
+<span class="sd">                symbols, frequency, file_name</span>
+<span class="sd">        using this becomes counter intuituve as the aux_file will have size &gt; original file. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
            </div>

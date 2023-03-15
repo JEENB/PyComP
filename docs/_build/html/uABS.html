@@ -50,9 +50,13 @@
 <li class="toctree-l2"><a class="reference internal" href="symmetric_numeral.html">Symmetric Numeral</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ANS.html">ANS</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">uABS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#uABS.uABS_encode_step"><code class="docutils literal notranslate"><span class="pre">uABS_encode_step()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uABS.uABS_encoding_table"><code class="docutils literal notranslate"><span class="pre">uABS_encoding_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uABS.uABS_encoding_table_for_a_symbol"><code class="docutils literal notranslate"><span class="pre">uABS_encoding_table_for_a_symbol()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uABS.uABS"><code class="docutils literal notranslate"><span class="pre">uABS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uABS.uABS.decode"><code class="docutils literal notranslate"><span class="pre">uABS.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uABS.uABS.encode"><code class="docutils literal notranslate"><span class="pre">uABS.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uABS.uABS.uABS_decode_step"><code class="docutils literal notranslate"><span class="pre">uABS.uABS_decode_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uABS.uABS.uABS_encode_step"><code class="docutils literal notranslate"><span class="pre">uABS.uABS_encode_step()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
@@ -89,27 +93,30 @@
              
   <section id="module-uABS">
 <span id="uabs"></span><h1>uABS<a class="headerlink" href="#module-uABS" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="uABS.uABS_encode_step">
-<span class="sig-prename descclassname"><span class="pre">uABS.</span></span><span class="sig-name descname"><span class="pre">uABS_encode_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_prev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS_encode_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS_encode_step" title="Permalink to this definition"></a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="uABS.uABS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">uABS.</span></span><span class="sig-name descname"><span class="pre">uABS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="uABS.uABS.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">final_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS.decode" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="uABS.uABS_encoding_table">
-<span class="sig-prename descclassname"><span class="pre">uABS.</span></span><span class="sig-name descname"><span class="pre">uABS_encoding_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS_encoding_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS_encoding_table" title="Permalink to this definition"></a></dt>
-<dd><p>table elements is a list of symbol, x_prev, x_new
-encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev</p>
-</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="uABS.uABS.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS.encode" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="uABS.uABS_encoding_table_for_a_symbol">
-<span class="sig-prename descclassname"><span class="pre">uABS.</span></span><span class="sig-name descname"><span class="pre">uABS_encoding_table_for_a_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS_encoding_table_for_a_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS_encoding_table_for_a_symbol" title="Permalink to this definition"></a></dt>
-<dd><p>function for creating encoding table
-for each x_prev and symbol,</p>
-<blockquote>
-<div><p>computes the next state</p>
-</div></blockquote>
-<p>effectively computes all possible state a symbol s can take</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="uABS.uABS.uABS_decode_step">
+<span class="sig-name descname"><span class="pre">uABS_decode_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS.uABS_decode_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS.uABS_decode_step" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="uABS.uABS.uABS_encode_step">
+<span class="sig-name descname"><span class="pre">uABS_encode_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_prev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uABS.html#uABS.uABS_encode_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#uABS.uABS.uABS_encode_step" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>

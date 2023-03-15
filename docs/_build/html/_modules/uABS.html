@@ -69,55 +69,49 @@
              
   <h1>Source code for uABS</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span>
-<span class="kn">import</span> <span class="nn">tabulate</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="n">encoding_table</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<div class="viewcode-block" id="uABS"><a class="viewcode-back" href="../uABS.html#uABS.uABS">[docs]</a><span class="k">class</span> <span class="nc">uABS</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+
+<div class="viewcode-block" id="uABS.uABS_encode_step"><a class="viewcode-back" href="../uABS.html#uABS.uABS.uABS_encode_step">[docs]</a>    <span class="k">def</span> <span class="nf">uABS_encode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x_prev</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">((</span><span class="n">x_prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">x_prev</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="uABS.encode"><a class="viewcode-back" href="../uABS.html#uABS.uABS.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span> <span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">initial_state</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span> 
+            <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uABS_encode_step</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="uABS.uABS_decode_step"><a class="viewcode-back" href="../uABS.html#uABS.uABS.uABS_decode_step">[docs]</a>    <span class="k">def</span> <span class="nf">uABS_decode_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">x_prev</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">x_prev</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">x_prev</span></div>
+    
+<div class="viewcode-block" id="uABS.decode"><a class="viewcode-back" href="../uABS.html#uABS.uABS.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">final_state</span><span class="p">,</span> <span class="n">msg_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">x_prev</span> <span class="o">=</span> <span class="n">final_state</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span> <span class="o">!=</span>  <span class="n">msg_len</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">x_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uABS_decode_step</span><span class="p">(</span><span class="n">x_prev</span><span class="p">)</span>
+            <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span></div></div>
+    
 
 
-<div class="viewcode-block" id="uABS_encode_step"><a class="viewcode-back" href="../uABS.html#uABS.uABS_encode_step">[docs]</a><span class="k">def</span> <span class="nf">uABS_encode_step</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_prev</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">((</span><span class="n">x_prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">x_prev</span><span class="o">/</span><span class="n">p</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span></div>
+<span class="c1"># x, le = u.encode(&#39;10000101&#39;)</span>
+<span class="c1"># print(x)</span>
+<span class="c1"># print(u.decode(x, le))</span>
 
-
-<div class="viewcode-block" id="uABS_encoding_table_for_a_symbol"><a class="viewcode-back" href="../uABS.html#uABS.uABS_encoding_table_for_a_symbol">[docs]</a><span class="k">def</span> <span class="nf">uABS_encoding_table_for_a_symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">show_steps</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    function for creating encoding table</span>
-<span class="sd">    for each x_prev and symbol, </span>
-<span class="sd">            computes the next state</span>
-<span class="sd">    effectively computes all possible state a symbol s can take</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">output_log</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">uABS_encode_step</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">x_prev</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">output_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">symbol</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">]))</span>
-
-    <span class="k">if</span> <span class="n">show_steps</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">output_log</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span>
-              <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="s1">&#39;x_prev&#39;</span><span class="p">,</span> <span class="s1">&#39;x_next&#39;</span><span class="p">]))</span>
-
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">output_log</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="uABS_encoding_table"><a class="viewcode-back" href="../uABS.html#uABS.uABS_encoding_table">[docs]</a><span class="k">def</span> <span class="nf">uABS_encoding_table</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">symbols</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">show_steps</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    table elements is a list of symbol, x_prev, x_new</span>
-<span class="sd">    encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">table_elements</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">uABS_encoding_table_for_a_symbol</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
-            <span class="n">table_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-    <span class="n">table</span> <span class="o">=</span> <span class="n">encoding_table</span><span class="p">(</span><span class="n">table_elements</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">table</span></div>
-
-
-<span class="c1"># print(uABS_encoding_table(0.3))</span>
 </pre></div>
 
            </div>

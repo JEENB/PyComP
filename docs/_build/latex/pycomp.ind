@@ -1,0 +1,162 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{ANS}
+    \subitem \spxentry{module}, \hyperpage{16}
+  \item \spxentry{arithmetic\_coding}
+    \subitem \spxentry{module}, \hyperpage{8}
+  \item \spxentry{ArithmeticCoding}\spxextra{class in arithmetic\_coding}, \hyperpage{8}
+  \item \spxentry{ArithmeticDecoder}\spxextra{class in arithmetic\_coding}, \hyperpage{10}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{bitarray\_to\_int()}\spxextra{in module utils.bit\_array\_utils}, \hyperpage{21}
+  \item \spxentry{bitarrays\_to\_float()}\spxextra{in module utils.bit\_array\_utils}, 
+		\hyperpage{21}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{convert\_bytes()}\spxextra{in module utils.file\_utils}, \hyperpage{22}
+  \item \spxentry{convert\_list\_to\_string()}\spxextra{in module utils.utils}, \hyperpage{24}
+  \item \spxentry{core}
+    \subitem \spxentry{module}, \hyperpage{6}
+  \item \spxentry{core.data}
+    \subitem \spxentry{module}, \hyperpage{5}
+  \item \spxentry{create\_aux\_file()}\spxextra{file\_compressor.FileCompressor method}, 
+		\hyperpage{20}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{Data}\spxextra{class in core.data}, \hyperpage{5}
+  \item \spxentry{decode()}\spxextra{ANS.rANS method}, \hyperpage{16}
+  \item \spxentry{decode()}\spxextra{ANS.rANSDecoder method}, \hyperpage{17}
+  \item \spxentry{decode()}\spxextra{arithmetic\_coding.ArithmeticCoding method}, \hyperpage{9}
+  \item \spxentry{decode()}\spxextra{arithmetic\_coding.ArithmeticDecoder method}, \hyperpage{11}
+  \item \spxentry{decode()}\spxextra{arithmetic\_coding.RangeCoding method}, \hyperpage{11}
+  \item \spxentry{decode()}\spxextra{arithmetic\_coding.RangeDecoder method}, \hyperpage{14}
+  \item \spxentry{decode()}\spxextra{file\_compressor.FileCompressor method}, \hyperpage{20}
+  \item \spxentry{decode()}\spxextra{huffman.Huffman static method}, \hyperpage{6}
+  \item \spxentry{decode()}\spxextra{sANS.sANS method}, \hyperpage{18}
+  \item \spxentry{decode()}\spxextra{sANS.sANSDecoder method}, \hyperpage{19}
+  \item \spxentry{decode()}\spxextra{symmetric\_numeral.SymmetricNumeral method}, \hyperpage{15}
+  \item \spxentry{decode()}\spxextra{uABS.uABS method}, \hyperpage{18}
+  \item \spxentry{decToBinConversion()}\spxextra{in module utils.ac\_utils}, \hyperpage{20}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{encode()}\spxextra{ANS.rANS method}, \hyperpage{16}
+  \item \spxentry{encode()}\spxextra{arithmetic\_coding.ArithmeticCoding method}, \hyperpage{9}
+  \item \spxentry{encode()}\spxextra{arithmetic\_coding.RangeCoding method}, \hyperpage{13}
+  \item \spxentry{encode()}\spxextra{huffman.Huffman method}, \hyperpage{7}
+  \item \spxentry{encode()}\spxextra{sANS.sANS method}, \hyperpage{18}
+  \item \spxentry{encode()}\spxextra{symmetric\_numeral.SymmetricNumeral method}, \hyperpage{15}
+  \item \spxentry{encode()}\spxextra{uABS.uABS method}, \hyperpage{18}
+  \item \spxentry{encode\_symbols\_to\_integer()}\spxextra{in module utils.utils}, \hyperpage{24}
+  \item \spxentry{encoding\_table()}\spxextra{in module utils.utils}, \hyperpage{24}
+  \item \spxentry{epoch\_to\_datetime()}\spxextra{in module utils.file\_utils}, \hyperpage{22}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{file\_compressor}
+    \subitem \spxentry{module}, \hyperpage{19}
+  \item \spxentry{file\_creation()}\spxextra{in module utils.file\_utils}, \hyperpage{22}
+  \item \spxentry{file\_encode()}\spxextra{file\_compressor.FileCompressor method}, \hyperpage{20}
+  \item \spxentry{file\_last\_modified()}\spxextra{in module utils.file\_utils}, \hyperpage{23}
+  \item \spxentry{file\_name()}\spxextra{in module utils.file\_utils}, \hyperpage{23}
+  \item \spxentry{file\_size()}\spxextra{in module utils.file\_utils}, \hyperpage{23}
+  \item \spxentry{file\_summary()}\spxextra{in module utils.file\_utils}, \hyperpage{23}
+  \item \spxentry{FileCompressor}\spxextra{class in file\_compressor}, \hyperpage{19}
+  \item \spxentry{float\_to\_bitarrays()}\spxextra{in module utils.bit\_array\_utils}, 
+		\hyperpage{21}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_symbols()}\spxextra{in module utils.utils}, \hyperpage{24}
+  \item \spxentry{getBinaryFractionValue()}\spxextra{in module utils.ac\_utils}, \hyperpage{20}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{huffman}
+    \subitem \spxentry{module}, \hyperpage{6}
+  \item \spxentry{Huffman}\spxextra{class in huffman}, \hyperpage{6}
+  \item \spxentry{huffman\_tree()}\spxextra{huffman.Huffman method}, \hyperpage{7}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{int\_to\_bitarray()}\spxextra{in module utils.bit\_array\_utils}, \hyperpage{21}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{module}
+    \subitem \spxentry{ANS}, \hyperpage{16}
+    \subitem \spxentry{arithmetic\_coding}, \hyperpage{8}
+    \subitem \spxentry{core}, \hyperpage{6}
+    \subitem \spxentry{core.data}, \hyperpage{5}
+    \subitem \spxentry{file\_compressor}, \hyperpage{19}
+    \subitem \spxentry{huffman}, \hyperpage{6}
+    \subitem \spxentry{sANS}, \hyperpage{18}
+    \subitem \spxentry{symmetric\_numeral}, \hyperpage{15}
+    \subitem \spxentry{uABS}, \hyperpage{18}
+    \subitem \spxentry{utils}, \hyperpage{25}
+    \subitem \spxentry{utils.ac\_utils}, \hyperpage{20}
+    \subitem \spxentry{utils.bit\_array\_utils}, \hyperpage{21}
+    \subitem \spxentry{utils.file\_utils}, \hyperpage{22}
+    \subitem \spxentry{utils.utils}, \hyperpage{24}
+  \item \spxentry{msg\_prob()}\spxextra{arithmetic\_coding.ArithmeticCoding method}, \hyperpage{10}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{Node}\spxextra{class in huffman}, \hyperpage{8}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{print\_tree()}\spxextra{huffman.Huffman static method}, \hyperpage{7}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{RangeCoding}\spxextra{class in arithmetic\_coding}, \hyperpage{11}
+  \item \spxentry{RangeDecoder}\spxextra{class in arithmetic\_coding}, \hyperpage{14}
+  \item \spxentry{rANS}\spxextra{class in ANS}, \hyperpage{16}
+  \item \spxentry{rANS\_decode\_step()}\spxextra{ANS.rANS method}, \hyperpage{17}
+  \item \spxentry{rANS\_encode\_step()}\spxextra{ANS.rANS method}, \hyperpage{17}
+  \item \spxentry{rANS\_encoding\_table()}\spxextra{ANS.rANS method}, \hyperpage{17}
+  \item \spxentry{rANSDecoder}\spxextra{class in ANS}, \hyperpage{17}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{sANS}
+    \subitem \spxentry{module}, \hyperpage{18}
+  \item \spxentry{sANS}\spxextra{class in sANS}, \hyperpage{18}
+  \item \spxentry{sANSDecoder}\spxextra{class in sANS}, \hyperpage{19}
+  \item \spxentry{shannon\_entropy()}\spxextra{core.data.Data method}, \hyperpage{6}
+  \item \spxentry{shannon\_entropy()}\spxextra{symmetric\_numeral.SymmetricNumeral method}, 
+		\hyperpage{15}
+  \item \spxentry{show\_table()}\spxextra{huffman.Huffman method}, \hyperpage{7}
+  \item \spxentry{summary()}\spxextra{file\_compressor.FileCompressor method}, \hyperpage{20}
+  \item \spxentry{symmetric\_numeral}
+    \subitem \spxentry{module}, \hyperpage{15}
+  \item \spxentry{SymmetricNumeral}\spxextra{class in symmetric\_numeral}, \hyperpage{15}
+
+  \indexspace
+  \bigletter U
+  \item \spxentry{uABS}
+    \subitem \spxentry{module}, \hyperpage{18}
+  \item \spxentry{uABS}\spxextra{class in uABS}, \hyperpage{18}
+  \item \spxentry{uABS\_decode\_step()}\spxextra{uABS.uABS method}, \hyperpage{18}
+  \item \spxentry{uABS\_encode\_step()}\spxextra{uABS.uABS method}, \hyperpage{18}
+  \item \spxentry{utils}
+    \subitem \spxentry{module}, \hyperpage{25}
+  \item \spxentry{utils.ac\_utils}
+    \subitem \spxentry{module}, \hyperpage{20}
+  \item \spxentry{utils.bit\_array\_utils}
+    \subitem \spxentry{module}, \hyperpage{21}
+  \item \spxentry{utils.file\_utils}
+    \subitem \spxentry{module}, \hyperpage{22}
+  \item \spxentry{utils.utils}
+    \subitem \spxentry{module}, \hyperpage{24}
+
+\end{sphinxtheindex}

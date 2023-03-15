@@ -52,10 +52,11 @@
 <li class="toctree-l2"><a class="reference internal" href="uABS.html">uABS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sANS.html">Streaming ANS</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">File Compressor</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#file_compressor.rANSFileCompressor"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#file_compressor.rANSFileCompressor.decode"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.decode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#file_compressor.rANSFileCompressor.file_encode"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.file_encode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#file_compressor.rANSFileCompressor.summary"><code class="docutils literal notranslate"><span class="pre">rANSFileCompressor.summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file_compressor.FileCompressor"><code class="docutils literal notranslate"><span class="pre">FileCompressor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#file_compressor.FileCompressor.create_aux_file"><code class="docutils literal notranslate"><span class="pre">FileCompressor.create_aux_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file_compressor.FileCompressor.decode"><code class="docutils literal notranslate"><span class="pre">FileCompressor.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file_compressor.FileCompressor.file_encode"><code class="docutils literal notranslate"><span class="pre">FileCompressor.file_encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file_compressor.FileCompressor.summary"><code class="docutils literal notranslate"><span class="pre">FileCompressor.summary()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -93,8 +94,8 @@
   <section id="module-file_compressor">
 <span id="file-compressor"></span><h1>File Compressor<a class="headerlink" href="#module-file_compressor" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="file_compressor.rANSFileCompressor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">file_compressor.</span></span><span class="sig-name descname"><span class="pre">rANSFileCompressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#rANSFileCompressor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.rANSFileCompressor" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="file_compressor.FileCompressor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">file_compressor.</span></span><span class="sig-name descname"><span class="pre">FileCompressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#FileCompressor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.FileCompressor" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Compresses a file</p>
 <section id="parameter">
@@ -107,18 +108,44 @@
 </dl>
 <p>Note: The decode function can be used given the class has been configured with correct prob distn.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="file_compressor.rANSFileCompressor.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#rANSFileCompressor.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.rANSFileCompressor.decode" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="file_compressor.FileCompressor.create_aux_file">
+<span class="sig-name descname"><span class="pre">create_aux_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#FileCompressor.create_aux_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.FileCompressor.create_aux_file" title="Permalink to this definition"></a></dt>
+<dd><p>creates an auxiliary file with symbols and their frequency distribution: for decompressor
+consists of:</p>
+<blockquote>
+<div><p>symbols, frequency, file_name</p>
+</div></blockquote>
+<p>using this becomes counter intuituve as the aux_file will have size &gt; original file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="file_compressor.FileCompressor.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#FileCompressor.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.FileCompressor.decode" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="file_compressor.rANSFileCompressor.file_encode">
-<span class="sig-name descname"><span class="pre">file_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compressor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#rANSFileCompressor.file_encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.rANSFileCompressor.file_encode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="file_compressor.FileCompressor.file_encode">
+<span class="sig-name descname"><span class="pre">file_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compressor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#FileCompressor.file_encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.FileCompressor.file_encode" title="Permalink to this definition"></a></dt>
+<dd><p>Given a compression algorithm compressed a file. 
+Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>compressor: str</dt><dd><p>compression algorithm either from huffman, airhtmetic, range, rANS, sANS</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>encodec_value: int | str | Tuple</dt><dd><p>the encoded value can be anything depending on the output of the compression algorithm.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="file_compressor.rANSFileCompressor.summary">
-<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#rANSFileCompressor.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.rANSFileCompressor.summary" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="file_compressor.FileCompressor.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/file_compressor.html#FileCompressor.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#file_compressor.FileCompressor.summary" title="Permalink to this definition"></a></dt>
 <dd><p>function that gives summary of the file
 :
 file_name

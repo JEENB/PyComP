@@ -3,6 +3,7 @@ import os
 from utils.utils import *
 from utils.file_utils import *
 import tabulate
+from typing import Tuple
 
 # states are not defined as python allows for infinite integer precision
 
@@ -39,7 +40,7 @@ class rANS(Data):
         x = block * self.M + slot
         return x
 
-    def encode(self, msg: list, start_state: int) -> int:
+    def encode(self, msg: list, start_state: int) -> Tuple[str, int]:
         '''
         rANS encode function 
 
@@ -61,7 +62,7 @@ class rANS(Data):
         x = start_state
         for d in msg:
             x = self.rANS_encode_step(d, x)
-        return x
+        return bin(x), len(msg)
 
     def rANS_decode_step(self, x_next: int) -> tuple:
         '''
@@ -73,7 +74,7 @@ class rANS(Data):
         x_prev = block_id * self.freq_dist[decoded_symb] + slot - (self.cum_dist[decoded_symb][0])
         return decoded_symb, x_prev
 
-    def decode(self, encoded_value: int, msg_len) -> list:
+    def decode(self, encoded_value: str, msg_len) -> list:
         '''
         rANS decode function
 
@@ -91,7 +92,7 @@ class rANS(Data):
         >>> a.decode(1242,6)
         ['a', 'b', 'c', 'c', 'a', 'b']
         '''
-        x_prev = encoded_value
+        x_prev = int(encoded_value, 2)
         symbols = []
         while len(symbols) != msg_len:
             block_id = x_prev // self.M
@@ -143,7 +144,7 @@ class rANSDecoder(Data):
         super().__init__(symbols, frequency)
         self.rans = rANS(self.symbols, self.frequency)
 
-    def decode(self, encoded_value: int, msg_len: int):
+    def decode(self, encoded_value: str, msg_len: int):
         '''
         Function to decode, give the correct order
         Parameters: 
@@ -160,3 +161,14 @@ class rANSDecoder(Data):
         '''
         symbols = self.rans.decode(encoded_value, msg_len)
         return symbols
+    
+s = ['a', 'b', 'c', 'd']
+f = [3, 3, 2, 2]
+c = rANS(s, f)
+x_1 = c.rANS_encode_step('d', 1)
+x_2 = c.rANS_encode_step('a', x_1)
+x_3 = c.rANS_encode_step('b', x_2)
+x_4 = c.rANS_encode_step('b', x_3)
+x_5 = c.rANS_encode_step('c', x_4)
+x_6 = c.rANS_encode_step('a',x_5)
+print(x_1, x_2, x_3, x_4, x_5, x_6)

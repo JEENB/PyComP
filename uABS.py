@@ -1,50 +1,43 @@
-from math import ceil, floor
-import tabulate
-import numpy as np
-from utils.utils import encoding_table
+from math import ceil, floor, log2
+import sys
 
+class uABS:
 
-def uABS_encode_step(s: int, p: float, x_prev: int):
-    if s == 0:
-        x = ceil((x_prev + 1)/(1-p)) - 1
-    if s == 1:
-        x = floor(x_prev/p)
-    return x
+    def __init__(self, p) -> None:
+        self.p = p
 
+    def shannon_entropy(self):
+        self.entropy =  self.p*log2(1/self.p) + (1-self.p) * log2(1/(1-self.p))
+        return self.entropy
+    
+    def uABS_encode_step(self, s: str, x_prev: int):
+        if s == '0':
+            x = ceil((x_prev + 1)/(1-self.p)) - 1
+        if s == '1':
+            x = floor(x_prev/self.p)
+        return x
 
-def uABS_encoding_table_for_a_symbol(symbol, p: float, show_steps=False):
-    '''
-    function for creating encoding table
-    for each x_prev and symbol, 
-            computes the next state
-    effectively computes all possible state a symbol s can take
-    '''
-    output_log = []
-    for i in range(15):
-        x = uABS_encode_step(s=symbol, p=p, x_prev=i)
-        output_log.append(np.array([symbol, i, x]))
+    def encode(self, msg :str, initial_state = 0):
+        x = initial_state
+        for i in msg: 
+            assert i == '0' or i == '1'
+            x = self.uABS_encode_step(i, x)
+        return x, len(msg)
+    
+    def uABS_decode_step(self, x):
+        s = ceil((x+1)*self.p) - ceil(x*self.p)
+        if str(s) == '0':
+            x_prev = floor(x*(1-self.p))
+        if str(s) == '1':
+            x_prev = ceil(x*self.p)
+        return s, x_prev
+    
+    def decode(self, final_state, msg_len: int):
+        symbols = []
+        x_prev = final_state
+        while len(symbols) !=  msg_len:
+            s, x_prev = self.uABS_decode_step(x_prev)
+            symbols.append(s)
+        return list(reversed(symbols))
+    
 
-    if show_steps:
-        print(tabulate.tabulate(output_log, headers=[
-              'symbol', 'x_prev', 'x_next']))
-
-    return np.array(output_log)
-
-
-def uABS_encoding_table(p: float, symbols: list = [0, 1], show_steps=False):
-    '''
-    table elements is a list of symbol, x_prev, x_new
-    encoding_table: matrix (A) of size len(symbol) * max(x_new) where A_{symbol,x_new} = x_prev
-
-    '''
-    table_elements = []
-    for s in symbols:
-        output = uABS_encoding_table_for_a_symbol(s, p)
-        for i in output:
-            table_elements.append(i)
-
-    table = encoding_table(table_elements)
-    return table
-
-
-# print(uABS_encoding_table(0.3))
