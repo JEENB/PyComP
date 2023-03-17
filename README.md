@@ -26,13 +26,13 @@ Here is a list of algorithms implemented.
    ```
    ## Here's how you can use the library. 
    ## Each compressor comes with an encode and decode function
-   import PyComP.compressors.ANS as ANS  ## imports the ANS class
+   from PyComP.compressors.ANS import rANS  ## imports the ANS class
 
    symbols = ['q','w','e','r','t','y']
    frequency = [9,8,4,7,6,1]
 
-   compressor = ANS(symbols, frequency)
-   encoded_msg , _ = compressor.encode(msg = ['q','q','w','w','e','e','r'])
+   compressor = rANS(symbols, frequency)
+   encoded_msg , _ = compressor.encode(msg = ['q','q','w','w','e','e','r'], start_state =0)
    print(encoded_msg)
    ```
 ## Contact
