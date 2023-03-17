@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+PyComP_Python_Compression_Library.egg-info/PKG-INFO
+PyComP_Python_Compression_Library.egg-info/SOURCES.txt
+PyComP_Python_Compression_Library.egg-info/dependency_links.txt
+PyComP_Python_Compression_Library.egg-info/requires.txt
+PyComP_Python_Compression_Library.egg-info/top_level.txt
